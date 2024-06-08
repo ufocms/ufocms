@@ -1,0 +1,2437 @@
+/**
+ * Copyright (c) 2022-2024 UFOCMS
+ *
+ * This software is licensed under the GPLv3 license.
+ * See the LICENSE file for more information.
+ */
+
+@import "ui.css";
+@import "../libs/duDialog/duDialog.min.css";
+@import "../libs/codemirror/codemirror.css";
+@import "../libs/codemirror/theme/dracula.css";
+
+* {
+    scrollbar-color: var(--thumb-scroll-thumb) var(--thumb-track);
+    scrollbar-width: none;
+    scrollbar-height: none;
+}
+::-webkit-scrollbar {
+    width: 3px;
+    height: 2px;
+}
+::-webkit-scrollbar-track {
+    background: var(--thumb-track);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--thumb-scroll-thumb);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--thumb-scroll-thumb-hover);
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+img {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+}
+video {
+    width: 100%;
+    height: 100%;
+}
+body[data-theme="dark"] a {
+    color: whitesmoke;
+}
+body[data-theme="dark"] hr {
+    background: #ccc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    font-family: var(--font);
+}
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: var(--cl);
+    background: var(--bg-page);
+    font-family: var(--font);
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.menu {
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+    background: var(--bg-menu);
+    padding: 10px;
+    color: var(--cl-menu);
+    overflow: auto;
+}
+.item-menu {
+    width: 100%;
+    height: 40px;
+    color: var(--admin-menu-cl);
+    padding: 0 8px 3px 8px;
+    margin: 0 0 15px 0;
+    cursor: pointer;
+    display: block;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+}
+.item-menu:not(.item-menu.active):hover {
+    box-shadow: -.2rem 0 0 0 var(--admin-menu-hover);
+    transition: all .3s ease-in-out;
+}
+html[dir="rtl"] .item-menu:not(.item-menu.active):hover {
+    box-shadow: .2rem 0 0 0 var(--admin-menu-hover);
+    transition: all .3s ease-in-out;
+}
+.item-menu.active {
+    background: var(--admin-menu-active-bg);
+    color: var(--admin-menu-active-cl);
+    border-radius: 6px;
+}
+.item-menu:first-child {
+    margin-top: 10px;
+}
+.item-menu i {
+    font-size: 21px;
+    width: 21px;height: 21px;
+    margin: 1px 0 0 0;
+}
+.item-menu img {
+    width: 23px;height: 23px;
+}
+.item-menu span {
+    font-size: 15px;
+    display: block;
+    margin: 5px 0 0 15px;
+    position: relative;
+    top: -2px;
+    width: 100%;text-overflow: ellipsis;overflow: hidden;white-space: nowrap
+}
+html[dir="rtl"] .item-menu span {
+    margin: 5px 15px 0 0;
+}
+.admin-menu-badge {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: var(--admin-menu-badge);
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px 0 0 -8px;
+    color: whitesmoke;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html[dir="rtl"] .admin-menu-badge {
+    margin: -20px -8px 0 0;
+}
+.menu .profile-admin {
+    background: #ffffff50;
+    border-radius: 4px;
+    height: 50px;
+    padding: 5px 10px 10px;
+    color: var(--cl-menu);
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.menu .profile-admin div {
+    margin: 8px 10px 0 0;
+    font-size: 14px;
+    display: block;
+    align-items: center;
+    width: calc(100% - 35px);
+}
+.menu .profile-admin span {
+    width: calc(100% - 25px);
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+}
+html[dir="rtl"] .menu .profile-admin span {
+    padding: 0;
+}
+.menu .profile-admin img {
+    border-radius: 50%;
+    margin: 5px 0 0;
+    height: 30px;
+    width: 30px;
+    min-width: 30px;
+    min-height: 30px;
+}
+.ufo-logout-admin {
+    float: right;
+    position: relative;
+    top: -21px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 -5px 0 0;
+}
+html[dir="rtl"] .ufo-logout-admin {
+    float: left;
+    top: -20px;
+    transform: rotate(178deg);
+    margin: 0 0 0 4px;
+}
+.logo-web {
+    padding: 10px 0;
+    font-size: 32px;
+    color: var(--cl-menu);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.logo-web i {
+    font-size: 45px;
+}
+.header-title .logo-web {
+    display: none;
+}
+.header-title h3 {
+    max-width: 150px;
+    min-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+.open-menu-side {
+    font-size: 25px;
+    margin: 0 0 0 10px;
+    cursor: pointer;
+    display: none;
+}
+.open-menu-side.ufo-icon-x {
+    font-size: 21px;
+}
+
+.content-pages {
+    -webkit-flex: 13;
+    -ms-flex: 13;
+    flex: 13;
+    overflow: auto;
+}
+.content-pages .content-page {
+    overflow: auto;
+    height: 100%;
+}
+body.admin-has-header .content-pages .content-page {
+    height: calc(100% - 70px);
+}
+
+.ufo-startup-loading {
+    height: 4px;
+    width: 150px;
+    border-radius: 12px;
+    --c: no-repeat linear-gradient(#005aff 0 0);
+    background: var(--c), var(--c), whitesmoke;
+    background-size: 60% 100%;
+    animation: ufo-startup-loading-animate 3s infinite;
+}
+
+.admin-header {
+    width: 100%;
+    background: var(--bg-menu);
+    height: 70px;
+    color: var(--cl-menu);
+}
+.admin-header .header-title {
+    padding: 20px 12px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    direction: rtl;
+    padding: 0 12px;
+}
+.header-left a:hover,
+.header-left i:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.header-left a:not(:first-child),
+.header-left i:not(:first-child) {
+    color: inherit;
+    text-decoration: none;
+    margin: 0 15px 0 0;
+}
+html[dir="rtl"] .header-left a:not(:first-child),
+html[dir="rtl"] .header-left i:not(:first-child) {
+    margin: 0 0 0 15px;
+}
+html[dir="rtl"] .header-left {
+    direction: ltr;
+}
+
+.box-admin-profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.box-admin-profile span {
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    position: relative;
+    top: 2.5px;
+    right: 5px;left: 5px;
+}
+.box-admin-profile:hover {
+    cursor: pointer;
+}
+.space-inputs {
+    margin: 0 0 10px 0;
+}
+.login-container {
+    width: 100%;
+    height: 100%;
+}
+.form-login {
+    width: 30%;
+    height: auto;
+    padding: 24px;
+    background: var(--bg-login);
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+    color: black;
+    border-radius: 6px;
+}
+.login-icon {
+    all: unset;
+    font-size: 125px;
+    margin: 0 0 50px 0;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+.statistics-row {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.statistics-box {
+    background: var(--bg-statistics);
+    margin: 10px;
+    color: var(--cl-statistics);
+    border-radius: 6px;
+    padding: 20px;
+}
+.number-statistics-box {
+    padding: 5px 0;
+    display: block;
+    margin: 1px 0 0 0;
+}
+.statistics-box i {
+    font-size: 22px;
+    margin: 8px 0 0 10px;
+}
+.statistics-box h4 {
+    margin: 7px 0 0 0;
+}
+
+.cke_screen_reader_only.cke_copyformatting_notification {
+    display: none;
+}
+
+.settings {
+    width: 100%;
+    padding: 12px;
+}
+.setting-items {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+.setting-items {
+    width: 100%;
+    height: 70px;
+    border-radius: 12px;
+    margin: 0 0 10px 0;
+    background: var(--setting-item-bg);
+    color: var(--setting-item-cl);
+    cursor: pointer;
+}
+.setting-items:hover {
+    background: var(--setting-item-hv-bg);
+}
+.setting-items .icon-wrp {
+    padding: 10px;
+}
+.setting-items .icon {
+    background: var(--setting-this-icon-cl);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+.setting-items .icon i {
+    font-size: 26px;
+    color: var(--setting-item-icon-cl);
+}
+.setting-items .sub-title {
+    font-size: 13px;
+}
+.setting-items .content {
+    margin: 6px 0 0 0;
+}
+
+.ufo-more-setting-head {
+    padding: 12px 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+.ufo-more-setting-head button {
+    min-width: 125px;
+    font-size: 14px;
+    height: 43px;
+}
+.ufo-more-setting-head input {
+    width: 100%;
+    margin: 0 2px;
+}
+.ufo-more-setting-ul {
+    width: 100%;
+    height: auto;
+    padding: 12px;
+}
+body[data-theme="dark"] .ufo-more-setting-ul {
+    color: black;
+}
+.ufo-more-setting-li {
+    width: 100%;
+    background: var(--setting-item-bg);
+    border-radius: 18px;
+    padding: 14px;
+    margin: 0 0 10px;
+}
+.ufo-more-setting-li *:not(textarea,input,button,i) {
+    color: var(--setting-item-cl) !important;
+}
+.ufo-more-setting-li h3 {
+    margin: 0 0 5px;
+}
+.ufo-more-setting-li hr {
+    margin: 0 0 15px;
+}
+.ufo-setting-logo-banner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-setting-web-logo, .ufo-setting-web-banner {
+    width: 100px;
+    height: 100px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 3px solid #0a53be;
+}
+.ufo-setting-web-banner {
+    width: 300px;
+    max-width: 100%;
+    max-height: 150px;
+}
+.ufo-setting-web-logo img, .ufo-setting-web-banner img {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+.ufo-setting-group-btn, .ufo-security-group-btn {
+    width: 100%;
+    height: 60px;
+    background: white;
+    margin: 15px 0;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-setting-group-btn button, .ufo-security-group-btn button {
+    outline: none;
+    border: 0;
+    width: 80px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.ufo-setting-group-btn button.active, .ufo-security-group-btn button.active {
+    background: #0a53be;
+    color: white;
+}
+
+/* LTR */
+html[dir="ltr"] .statistics-box h4 {
+    margin: 7px 0 0 10px;
+}
+html[dir="ltr"] .setting-items .icon {
+    margin-right: 10px;
+    margin-left: 0;
+}
+
+.menu-e-row {
+    width: 100%;
+}
+.menu-e-row * {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+.menu-e-row .item {
+    width: 100%;
+    height: 50px;
+    background: var(--menu-item-bg);
+    border-radius: 6px;
+    padding: 11px 12px 0;
+    margin: 0 0 10px 0;
+}
+.menu-e-row .item .title {
+    color: var(--menu-item-cl);
+    font-weight: bolder;
+    position: relative;
+    top: -2px;
+    display: inline-block;
+    width: auto;
+}
+.menu-e-row .item .sort-icon i {
+    color: var(--menu-item-cl);
+}
+.menu-e-row.submenu-list .item .sort-icon {
+    display: none;
+}
+.menu-e-row.submenu-list .item .title {
+    top: 4px;
+}
+.menu-e-row .item .menu-show-context {
+    color: var(--menu-item-cl);
+    cursor: pointer;
+    font-size: 20px;
+    position: relative;
+    top: 4px;
+}
+.menu-e-row .item .context-e-menu {
+    display: none;
+    position: absolute;
+    background: white;
+    border-radius: 6px;
+    width: 150px;
+    right: 30px;
+    padding: 6px;
+    color: black;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 1px;
+    z-index: 10;
+    top: 0;
+}
+html[dir="rtl"] .menu-e-row .item .context-e-menu {
+    right: unset;
+    left: 30px;
+}
+.menu-e-row .item .context-e-menu li {
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+.menu-e-row .item .context-e-menu li:hover {
+    background: #f3f7f8;
+}
+.menu-e-row .item .sort-icon {
+    position: relative;top: 3px;cursor: move;margin-right: 10px;
+}
+html[dir="rtl"] .menu-e-row .item .sort-icon {
+    margin-left: 10px;
+    margin-right: 0;
+}
+.add-menu-input.rtl-to-ltr-placeholder {
+    direction: ltr;
+}
+.menu-category-container {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    overflow: hidden;
+    padding: 10px 0 0 0;
+}
+.menu-category-container .menu-items-list {
+    min-width: 100px;
+    height: 35px;
+    border-radius: 30px;
+    background: var(--ufo-menu-category-item-bg);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0 0 0 10px;
+    font-size: 15px;
+    padding: 0 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+}
+.menu-category-container .menu-items-list:hover {
+    margin-top: -5px;
+    background: var(--ufo-menu-category-item-bg-hv);
+}
+.menu-category-container .menu-items-list.active {
+    margin-top: -5px;
+    background: var(--ufo-menu-category-item-bg-hv);
+}
+body[data-theme="light"] .menu-category-container .menu-items-list:hover {
+    color: white;
+}
+body[data-theme="light"] .menu-category-container .menu-items-list.active {
+    color: white;
+}
+html[dir="ltr"] .btn-toolbar-menu-action {
+    margin-right: 10px;
+}
+html[dir="rtl"] .btn-toolbar-menu-action {
+    margin-left: 10px;
+}
+.btn-toolbar-menu-action span {
+    margin-left: 10px;
+}
+html[dir="rtl"] .btn-toolbar-menu-action span {
+    margin-left: 0;
+    margin-right: 10px;
+}
+.menu-editor .menu-toolbar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu-editor .menu-toolbar .left,
+.menu-editor .menu-toolbar .right {
+    width: 50%;
+}
+.menu-editor .menu-toolbar .left {
+    flex-wrap: wrap;
+}
+.menu-editor .menu-toolbar .select-menu {
+    width: 200px;
+    height: 40px;
+    margin: 0 10px;
+}
+.menu-editor .menu-toolbar button {
+    margin-right: 5px;
+}
+html[dir="rtl"] .menu-editor .menu-toolbar button {
+    margin-right: 0;
+    margin-left: 5px;
+}
+.menu-editor .menu-toolbar .menu-add {
+    font-size: 16px;
+    height: 40px;
+}
+.list-menu-positions li {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background: var(--ufo-menu-category-item-bg);
+}
+.list-menu-positions li i {
+    color: red;
+    cursor: pointer;
+}
+
+.mem-photo {
+    min-width: 25px;
+    min-height: 25px;
+    max-width: 25px;
+    max-height: 25px;
+    margin: 0 5px 0 0;
+    border-radius: 50%;
+}
+html[dir="rtl"] .mem-photo {
+    margin: 0 0 0 5px;
+}
+.new-user-photo, .new-manager-photo {
+    height:50px;width:100%;padding:5px;display:flex;justify-content:center;align-items:center;margin:0 0 20px 0;
+}
+.new-user-photo img, .new-manager-photo img {
+    border-radius: 50%;
+    height: 85px;
+    width: 85px;
+}
+.e-user-cover-photo-loader {
+    position: absolute;
+    background: rgba(0,0,0,0.4);
+    width: 85px;
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.e-user-cover-photo-loader i {
+    font-size: 40px;
+}
+.head-option-members, .head-option-pages {
+    width: 100%;
+}
+.head-option-members .left, .head-option-pages .left {
+    width: 40%;
+}
+.head-option-members .right, .head-option-pages .right {
+    width: 60%;
+}
+.ufo-table-members thead tr th:last-child {
+    text-align: center !important;
+}
+
+.ufo-popup {
+    height: 400px;
+    width: 40%;
+    position: absolute;
+    z-index: 99999999;
+    background: var(--popup);
+    top: 0;left: 0;right: 0;bottom: 0;
+    margin: auto;
+    border-radius: 12px;
+}
+body[data-theme="light"] .ufo-popup {
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+}
+.ufo-popup.ufo-login-popup .form-login {
+    width: 80%;
+}
+.ufo-popup.ufo-login-popup .login-container {
+    width: 100%;
+    height: 100%;
+}
+.ufo-login-popup.light .form-login  {
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+}
+
+.ufo-popup-modal-layer {
+    width: 100%;height: 100%;
+    display: flex;justify-content: center;align-items: center;
+    position: absolute;
+    background: #00000040;
+    z-index: 999;
+}
+.ufo-popup-modal {
+    width: 80%;
+    height: calc(100% - 150px);
+    min-height: 150px;
+    background: var(--fm-popup-info-bg);
+    border-radius: 6px;
+}
+.ufo-popup-modal .header {
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid var(--fm-popup-info-hr);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+html[dir="rtl"] .ufo-popup-modal .header .title {
+    direction: rtl;
+}
+.ufo-popup-modal .header .close {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: width .5s linear;
+}
+.ufo-popup-modal .header .close i {
+    font-size: 16px;
+    margin: 0 10px 0 0;
+}
+html[dir="rtl"] .ufo-popup-modal .header .close i {
+    margin: 0 0 0 10px;
+}
+.ufo-popup-modal .header .close span {
+    display: none;
+    opacity: 0;
+}
+.ufo-popup-modal .header .close:hover span {
+    display: block;
+    opacity: 1;
+    transition: opacity .3s ease-in-out;
+}
+.ufo-popup-modal .header .close:hover {
+    background-color: blue;
+    width: 100px;
+    color: white;
+}
+.ufo-popup-modal .header .title {
+    width: 200px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    direction: ltr;
+    text-overflow: ellipsis;
+}
+.ufo-popup-modal .container {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    justify-content: flex-start;
+}
+.ufo-popup-modal .content {
+    -webkit-flex: 80;
+    -ms-flex: 80;
+    flex: 80;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-popup-modal .side {
+    -webkit-flex: 20;
+    -ms-flex: 20;
+    flex: 20;
+    height: 100%;
+    overflow: auto;
+    background: #f8f3f3;
+    padding: 6px;
+}
+html[dir="ltr"] body[data-theme="dark"] .ufo-popup-modal .side {
+    background: #353535;
+}
+html[dir="rtl"] body[data-theme="dark"] .ufo-popup-modal .side {
+    background: #353535;
+}
+.ufo-popup-modal .footer {
+    position: relative;
+    margin: 0;
+    top: calc(100% - 290px);
+    width: 100%;
+    overflow: hidden;
+    padding: 6px;
+}
+.ufo-popup-modal .footer button {
+    font-size: 15px;
+}
+
+.row-plugins {
+    width: 100%;
+    height: calc(100% - 50px);
+    padding: 12px;
+}
+.row-plugins .plugins-column {
+    width: 32.2%;
+    height: 200px;
+    background: var(--ufo-plugin-cn-bg);
+    border-radius: 6px;
+    float: left;
+    margin: 5px;
+}
+body[data-theme="light"] .row-plugins .plugins-column {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+html[dir="rtl"] .row-plugins .plugins-column {
+    float: right;
+}
+.row-plugins .plugins-column .top {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 8px;
+}
+.row-plugins .plugins-column .top .logo {
+    width: 55px;
+    height: 55px;
+    border-radius: 6px;
+}
+.row-plugins .plugins-column .top .title {
+    font-size: 18px;
+    margin: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+    display: block;
+}
+.row-plugins .plugins-column .top .version {
+    margin: 0 10px;
+    color: silver;
+    width: 100%;
+    display: block;
+    font-size: 13px;
+}
+.row-plugins .plugins-column .top .switch-wrp {
+    direction: rtl;
+}
+html[dir="rtl"] .row-plugins .plugins-column .top .switch-wrp {
+    direction: ltr;
+}
+.row-plugins .plugins-column .description {
+    margin: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 54px;
+}
+.row-plugins .plugins-column .bottom {
+    width: 100%;
+    border-top: 2px silver solid;
+    height: 57px;
+    padding: 0 10px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 14px;
+}
+.row-plugins .plugins-column .bottom div {
+    display: flex;
+    align-items: center;
+}
+.row-plugins .plugins-column .bottom div:nth-child(2) {
+    direction: rtl;
+}
+html[dir="rtl"] .row-plugins .plugins-column .bottom div:nth-child(2) {
+    direction: ltr;
+}
+.row-plugins .plugins-column .bottom .show-detail {
+    width: 100%;
+}
+.add-plugin i {
+    font-size: 50px !important;
+}
+
+.plugin-detail-logo {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+.plugin-detail-logo img {
+    width: 125px;
+    height: 125px;
+    border-radius: 6px;
+}
+.plugin-info-list-properties {
+    width: 100%;
+    height: calc(100% - 150px);
+    overflow: auto;
+}
+.plugin-info-list-properties li {
+    width: 100%;
+    height: 45px;
+    background: white;
+    border-radius: 6px;
+    margin: 0 0 10px 0;
+    padding: 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+body[data-theme="dark"] .plugin-info-list-properties li {
+    background: #4b4b4b;
+}
+body[data-theme="dark"] .plugin-info-list-properties li * {
+    color: white;
+}
+.plugin-info-list-properties li div {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.plugin-info-accordion {
+    min-height: 50px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+}
+body[data-theme="dark"] .plugin-info-accordion {
+    background: #4b4b4b;
+}
+.ufo-pt-tasks-list li {
+    list-style: none;
+    background: #f1efef;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 0 0 15px;
+}
+body[data-theme="dark"] .ufo-pt-tasks-list li {
+    background: #646262;
+    color: white;
+}
+.ufo-pt-tasks-list li:last-child {
+    margin: unset;
+}
+
+.ufo-select-tpt-wrp {
+    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+}
+.ufo-select-tpt {
+    width: 50%;
+    background: whitesmoke;
+    height: 120px;
+    border-radius: 6%;
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: black;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 1px;
+}
+.ufo-select-tpt i {
+    font-size: 40px;
+    margin: 0 0 15px;
+}
+
+.option-pages-toolbar-wrp {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    overflow: hidden;
+    padding: 10px 0 0 0;
+}
+.option-pages-toolbar {
+    font-size: 13px;
+    padding: 5px;
+    width: 100px;
+    margin: 10px 5px 5px;
+}
+
+.ufo-layer-lock {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999999999999;
+    background: var(--fix-problems-bg);
+}
+.CodeMirror {
+    width: 100%;
+    height: 100%;
+}
+
+.btn-search-pages, .btn-search-member {
+    width: 55px;
+    height: 44px;
+    padding: 0;
+}
+
+.select-img-category {
+    margin: auto auto 15px auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+.select-img-category img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid black;
+}
+
+.ufo-header-category {
+    width: 100%;
+    height: 55px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.ufo-comment-admin-reply {
+    min-height: 150px;
+    padding: 4px;
+}
+
+.ufo-notification-list {
+    width: 100%;
+    height: fit-content;
+    padding: 0 20px;
+}
+
+/** Widgets */
+.ufo-dashboard-widgets {
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+    padding: 12px 15px;
+}
+.ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(1) {
+    width: 75%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.ufo-dashboard-widget {
+    width: 95%;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 10px;
+    box-shadow: var(--widget-box-shadow);
+}
+.ufo-dashboard-widget header {
+    text-align: center;
+    background: var(--widget-header-bg);
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 5px 5px 0 0;
+}
+.ufo-dashboard-widget header h2 {
+    color: var(--widget-text-color);
+    font-size: 20px;
+}
+.ufo-widget-heading {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) {
+    width: 25%;
+}
+.ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) .ufo-dashboard-widget {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 5px;
+    padding-bottom: 10px;
+    box-shadow: var(--widget-box-shadow);
+}
+
+/** Notes widget */
+.ufo-dashboard-widget .ufo-note-list {
+    width: 100%;
+    height: calc(100% - 100px);
+}
+.ufo-dashboard-widget .ufo-note-list .ufo-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    list-style: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    direction: ltr;
+}
+.ufo-dashboard-widget .ufo-note-list .ufo-list li {
+    width: 95%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--widget-icon-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+html[dir="rtl"] .ufo-dashboard-widget .ufo-note-list .ufo-list li {
+    direction: rtl;
+}
+.ufo-dashboard-widget .ufo-note-list .ufo-list li i {
+    cursor: pointer;
+    font-size: 18px;
+}
+.ufo-dashboard-widget .ufo-note-list .ufo-list li i.remove {
+    color: red;
+}
+.ufo-dashboard-widget .ufo-note-list .ufo-list li span {
+    font-size: 14px;
+    width: 285px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+}
+.ufo-dashboard-widget .ufo-add-notes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding: 0 5px;
+}
+.ufo-dashboard-widget .ufo-add-notes input {
+    width: 75%;
+    height: 35px;
+    transition: none;
+}
+.ufo-dashboard-widget .ufo-add-notes .ufo-add-note-btn {
+    width: 70px;
+    height: 35px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+}
+
+/** Comments widget */
+.ufo-widget-ufo_widget_comments {
+    height: 450px;
+}
+.ufo-widget-ufo_widget_comments .comments {
+    width: 100%;
+    height: 480px;
+    padding: 15px 10px 5px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    direction: ltr;
+}
+.ufo-widget-ufo_widget_comments .comment {
+    direction: rtl;
+    width: 100%;
+    background: var(--widget-bg-color);
+    margin-bottom: 10px;
+    padding: 15px 10px 10px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.ufo-widget-ufo_widget_comments .comment .comment-header {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 7px;
+}
+.ufo-widget-ufo_widget_comments .comment .comment-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.ufo-widget-ufo_widget_comments .comment .comment-header h2 {
+    font-size: 15px;
+    margin: 0 10px;
+    width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ufo-widget-ufo_widget_comments .comment p {
+    width: 100%;
+    font-size: 13px;
+    line-height: 1.3rem;
+    color: var(--widget-icon-color);
+}
+.ufo-widget-ufo_widget_comments .comment span {
+    width: 100%;
+    font-size: 11px;
+    text-align: left;
+    color: var(--widget-icon-color);
+}
+
+/** Market */
+.ufo-market-search {
+    padding: 15px;
+}
+.ufo-market-search input, .ufo-market-category-select {
+    border-radius: 4px;
+    background: #4b4b4b;
+    border: 0;
+    color: white;
+    width: 100%;
+    height: 45px;
+    padding: 6px 40px;
+}
+body[data-theme="light"] .ufo-market-search input,
+.ufo-market-category-select {
+    background: #e3e0e0;
+    color: black;
+}
+.ufo-market-search i {
+    font-size: 25px;
+    position: relative;
+    top: -35px;
+    right: 10px;
+    left: 10px;
+}
+.ufo-market-search i.ufo-icon-x {
+    font-size: 15px;
+    top: -30px;
+}
+.ufo-market-category-select {
+    padding: 6px;
+    width: 100%;
+    cursor: pointer;
+}
+.ufo-grid-search {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.ufo-row-market {
+    padding: 6px 22px;
+}
+.ufo-market-show-all {
+    color: blue;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+body[data-theme="dark"] .ufo-market-show-all {
+    color: whitesmoke;
+}
+.ufo-market-show-all i {
+    font-size: 12px;
+    position: relative;
+}
+.ufo-columns-market {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    white-space: nowrap;
+    flex-flow: wrap;
+    padding: 10px 10px 0 0;
+}
+.ufo-market-item {
+    width: 32.3%;
+    height: 100px;
+    display: flex;
+    justify-content: flex-start;
+    background: #e3e0e0;
+    border-radius: 8px;
+    margin: 0 0 5px 10px;
+    cursor: pointer;
+}
+.ufo-market-item div:first-child {
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+    display: flex;
+    justify-content: flex-start;
+}
+.ufo-market-item div:first-child img {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    margin: 20px 10px 0;
+}
+.ufo-market-item div:first-child span {
+    margin: 15px 0;
+    display: block;
+    width: 100%;
+    max-height: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    max-width: calc(100% - 100px);
+    white-space: break-spaces;
+}
+.ufo-market-item div:nth-child(2) {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-market-item .install-cn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+}
+.ufo-market-item .install-cn button {
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    color: black;
+}
+body[data-theme="dark"] .ufo-market-item button {
+    border: 2px solid whitesmoke;
+    color: whitesmoke;
+}
+body[data-theme="dark"] .ufo-market-item {
+    background: #4b4b4b;
+    color: whitesmoke;
+}
+.ufo-market-tab-page {
+    width: 100%;
+    min-height: 15px;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: rgb(0 0 0 / 10%) 0 1px 4px;
+}
+body[data-theme="dark"] .ufo-market-tab-page {
+    background: #4b4b4b;
+}
+.ufo-market-comments li {
+    width: 100%;
+    padding: 6px;
+    margin: 0 0 10px 0;
+    border-radius: 6px;
+    display: flex;
+    justify-content: flex-start;
+    background: white;
+    box-shadow: rgb(0 0 0 / 10%) 0 1px 4px;
+}
+body[data-theme="dark"] .ufo-market-comments li {
+    background: #4b4b4b;
+}
+.ufo-market-comments li img {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+}
+.ufo-market-comments div:nth-child(1) {
+    flex: 1;
+}
+.ufo-market-comments div:nth-child(2) {
+    flex: 10;
+}
+.ufo-market-comment-reply {
+    padding: 0 35px 0 0;
+}
+.ufo-market-comments li .ufo-icon-star-fill {
+    color: orange;
+}
+
+.ufo-update-cn {
+    width: 100%;
+    height: 100%;
+    background: var(--ufo-update-bg);
+    overflow: auto;
+}
+.ufo-update-circle {
+    width: 280px;
+    height: 280px;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgb(54 132 249);
+    position: relative;
+    inset: 0;
+    margin: auto;
+    top: 20px;
+    transition: top 350ms linear;
+}
+.ufo-update-circle.pending {
+    top: 25%;
+    background: linear-gradient(0deg, rgb(0 196 255 / 33%) 33%, rgb(54 132 249) 100%);
+}
+.ufo-update-circle.stop {
+    top: 25%;
+}
+.ufo-update-circle-core {
+    width: 98%;
+    height: 98%;
+    border-radius: 50%;
+    background: var(--ufo-update-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bolder;
+    font-size: 28px;
+}
+.ufo-update-circle-core i {
+    font-size: 90px;
+    margin: 20px 0;
+    color: black;
+}
+body[data-theme="dark"] .ufo-update-circle {
+    background: rgb(96 104 106);
+}
+body[data-theme="dark"] .ufo-update-circle-core i {
+    color: white;
+}
+body[data-theme="dark"] .ufo-update-circle.pending {
+    background: linear-gradient(0deg, rgb(96 104 106 / 33%) 33%, rgb(93 93 94) 100%);
+}
+
+.ufo-update-loader-pulse {
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ufo-update-loader-pulse div {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0000ff;
+}
+body[data-theme="dark"] .ufo-update-loader-pulse div {
+    background: whitesmoke;
+}
+.ufo-update-loader-pulse div:nth-child(1) {
+    animation: update-pulse .4s ease 0s infinite alternate;
+}
+.ufo-update-loader-pulse div:nth-child(2) {
+    animation: update-pulse .4s ease .2s infinite alternate;
+}
+.ufo-update-loader-pulse div:nth-child(3) {
+    animation: update-pulse .4s ease .4s infinite alternate;
+}
+
+.ufo-info-new-version {
+    display: none;
+    position: relative;
+    background: #eeeded;
+    width: 95%;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: rgb(0 0 0 / 15%) 0 3px 3px 0;
+    margin: 30px auto;
+}
+.ufo-info-new-version.show {
+    display: block;
+}
+body[data-theme="dark"] .ufo-info-new-version {
+    background: #4b4b4b;
+}
+.ufo-about-new-version {
+    width: 100%;
+    border-bottom: 2px solid black;
+    margin: 0 0 15px;
+    font-size: 20px;
+}
+.ufo-about-new-version span {
+    margin: 0 0 10px;
+    display: block;
+}
+body[data-theme="dark"] .ufo-about-new-version {
+    border-bottom-color: whitesmoke;
+}
+.ufo-cn-get-new-version {
+    width: 100%;display: flex;justify-content: center;padding: 50px 0 0;
+}
+.ufo-btn-get-new-version {
+    padding: 12px;
+    border-radius: 25px !important;
+    width: 260px;
+    font-size: 16px;
+}
+.ufo-update-ufo {
+    width: 150px;
+    background: #0a58ca;
+    position: relative;
+    margin: auto;
+    inset: 0;
+}
+
+@keyframes update-pulse {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: .25;
+        transform: scale(.75);
+    }
+}
+@keyframes slide-side-menu {
+    from {
+        left: -40%;
+        opacity: 0;
+    }
+    to {
+        left: 0;
+        opacity: 1;
+    }
+}
+@keyframes slide-close-side-menu {
+    from {
+        left: 0;
+        opacity: 1;
+    }
+    to {
+        left: -40%;
+        opacity: 0;
+    }
+}
+@keyframes rtl-slide-side-menu {
+    from {
+        right: -40%;
+        opacity: 0;
+    }
+    to {
+        right: 0;
+        opacity: 1;
+    }
+}
+@keyframes rtl-slide-close-side-menu {
+    from {
+        right: 0;
+        opacity: 1;
+    }
+    to {
+        right: -40%;
+        opacity: 0;
+    }
+}
+@keyframes ufo-startup-loading-animate {
+    0% {
+        background-position: -150% 0, -150% 0
+    }
+    66% {
+        background-position: 250% 0, -150% 0
+    }
+    100% {
+        background-position: 250% 0, 250% 0
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 300px) {
+    .form-login {
+        width: 85%;
+    }
+    .menu {
+        width:70%;
+        z-index: 99999;
+        position: absolute;
+        top: 69px;
+        left: -40%;
+        display: none;
+        opacity: 0;
+        height: calc(100% - 70px);
+    }
+    .menu.active {
+        display: block;
+        animation: slide-side-menu .5s ease-in both;
+    }
+    .menu.close {
+        animation: slide-close-side-menu .5s ease-out both;
+    }
+    html[dir="rtl"] .menu{
+        right: -40%;
+    }
+    html[dir="rtl"] .menu.active {
+        display: block;
+        animation: rtl-slide-side-menu .5s ease-in both;
+    }
+    html[dir="rtl"] .menu.close {
+        animation: rtl-slide-close-side-menu .5s ease-out both;
+    }
+    .item-menu:first-child {
+        margin-top: 10px;
+    }
+    .admin-header {
+        padding: 20px 12px 0 1px;
+    }
+    html[dir="rtl"] .admin-header {
+        padding: 0 5px;
+    }
+    .header-title h3 {
+        display: none;
+    }
+    .admin-header .box-admin-profile {
+        width: 100px;
+        overflow: hidden;
+    }
+    .logo-web {
+        display: none;
+    }
+    .header-title .logo-web {
+        display: block;
+    }
+    .open-menu-side {
+        display: block;
+    }
+    .dashboard-container {
+        width: 93%;
+        padding: 2px !important;
+    }
+    .statistics-row {
+        display: block;
+    }
+    .statistics-box {
+        width: 100%;
+    }
+    .head-option-members {
+        display: block !important;
+    }
+    .head-option-members .left {
+        width: 100%;
+    }
+    .head-option-members .right {
+        width: 100%;
+    }
+    .head-option-pages {
+        display: block !important;
+    }
+    .head-option-pages .left {
+        width: 100%;
+    }
+    .head-option-pages .right {
+        width: 100%;
+    }
+    .ufo-popup {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .ufo-popup-modal {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .ufo-popup-modal .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+    .ufo-popup-modal .content,
+    .ufo-popup-modal .side {
+        border-radius: 20px 20px 0 0;
+        box-shadow: rgb(0 0 0 / 19%) 0 10px 20px, rgb(0 0 0 / 23%) 0 6px 6px;
+    }
+    .ufo-popup-modal .footer {
+        position: unset;
+    }
+    .stats-fm {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin: 20px 10px;
+    }
+    .fm-toolbar-wrp .container {
+        grid-template-columns: repeat(1, 1fr);
+        height: auto;
+    }
+    .fm-toolbar {
+        height: 55px;
+        width: 100%;
+        overflow: hidden;
+        flex-flow: row;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .fm-toolbar-wrp .fm-toolbar-two {
+        height: 50px;
+        width: 100%;
+        display: flex;
+    }
+    .fm-toolbar-wrp {
+        padding: 0 12px;
+    }
+    .fm-folder-container {
+        min-width: 90%;
+    }
+    .file-manager .file-card-container {
+        width: 100%;
+    }
+    .fm-minimize-uploading {
+        width: 95%;
+    }
+    .fm-minimize-uploading .fm-upload-preview-files .options {
+        left: 0;
+    }
+    .fm-popup-upload-list .fm-upload-preview-files {
+        width: 100%;
+    }
+    .fm-popup-upload-list .file h4 {
+        width: 140px;
+    }
+    .fm-popup-upload-list .file .options {
+        left: 0;
+    }
+    label[for="fm-up-input-file"] {
+        font-size: 18px;
+    }
+    .row-plugins .plugins-column {
+        width: 100%;
+    }
+    .ufo-select-tpt-wrp {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+    .ufo-select-tpt {
+        width: 70%;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    .ufo-header-category {
+        display: block;
+        height: 100px;
+    }
+    .ufo-header-category div {
+        width: 100%;
+    }
+    .ufo-columns-market {
+        padding: 10px 0 0;
+    }
+    .ufo-market-item {
+        width: 100%;
+        margin: 0 0 5px 0;
+    }
+}
+@media screen and (min-width: 300px) and (max-width: 640px) {
+    .form-login {
+        width: 85%;
+    }
+    .menu {
+        width: 50%;
+        z-index: 99999;
+        position: absolute;
+        top: 69px;
+        left: -40%;
+        display: none;
+        opacity: 0;
+        height: calc(100% - 70px);
+    }
+    .menu.active {
+        display: block;
+        animation: slide-side-menu .5s ease-in both;
+    }
+    .menu.close {
+        animation: slide-close-side-menu .5s ease-out both;
+    }
+    html[dir="rtl"] .menu{
+        right: -40%;
+    }
+    html[dir="rtl"] .menu.active {
+        display: block;
+        animation: rtl-slide-side-menu .5s ease-in both;
+    }
+    html[dir="rtl"] .menu.close {
+        animation: rtl-slide-close-side-menu .5s ease-out both;
+    }
+    .item-menu:first-child {
+        margin-top: 10px;
+    }
+    .logo-web {
+        display: none;
+    }
+    html[dir="ltr"] .admin-header {
+        padding: 0 5px 0 0;
+    }
+    html[dir="rtl"] .admin-header {
+        padding: 0 5px;
+    }
+    .header-title h3 {
+        display: none;
+    }
+    .admin-header .box-admin-profile {
+        width: 100px;
+        overflow: hidden;
+    }
+    .header-title .logo-web {
+        display: block;
+    }
+    .open-menu-side {
+        display: block;
+    }
+    .dashboard-container {
+        width: 93%;
+        padding: 2px !important;
+    }
+    .statistics-row {
+        display: block;
+    }
+    .statistics-box {
+        width: 100%;
+    }
+    .head-option-members .left {
+        width: 100%;
+    }
+    .head-option-members .right {
+        width: 100%;
+    }
+    .head-option-pages {
+        display: block !important;
+    }
+    .head-option-pages .left {
+        width: 100%;
+    }
+    .head-option-pages .right {
+        width: 100%;
+        padding: 8px 8px 8px 0;
+        margin: 0;
+    }
+    html[dir="rtl"] .head-option-pages .right {
+        padding: 8px 0 8px 8px;
+    }
+    .ufo-popup {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .ufo-popup-modal {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .ufo-popup-modal .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+    .ufo-popup-modal .content {
+        height: 40%;
+    }
+    .ufo-popup-modal .side {
+        height: 60%;
+        min-height: 60%;
+        max-height: 60%;
+        box-shadow: rgb(0 0 0 / 19%) 0 10px 20px, rgb(0 0 0 / 23%) 0 6px 6px;
+        border-radius: 20px 20px 0 0;
+    }
+    .ufo-popup-modal .footer {
+        position: absolute;
+        bottom: 10px;top: unset;
+        width: 97%;
+    }
+    .ufo-popup-modal .top {
+        height: 50%;
+    }
+    .stats-fm {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin: 20px 10px;
+    }
+    .fm-toolbar-wrp {
+        padding: 0 12px;
+    }
+    .fm-toolbar-wrp .container {
+        grid-template-columns: repeat(1, 1fr);
+        height: auto;
+    }
+    .fm-toolbar {
+        height: 55px;
+        width: 100%;
+        overflow: hidden;
+        flex-flow: row;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .fm-toolbar-wrp .fm-toolbar-two {
+        height: 50px;
+        width: 100%;
+        display: flex;
+    }
+    .fm-folder-container {
+        min-width: calc(60% - 50px);
+    }
+    .file-manager .file-card-container {
+        width: 33%;
+    }
+    .fm-minimize-uploading .fm-upload-preview-files .options {
+        left: 0;
+    }
+    .fm-popup-upload-list .fm-upload-preview-files {
+        width: 100%;
+    }
+    .fm-popup-upload-list .file h4 {
+        width: 140px;
+    }
+    .fm-popup-upload-list .file .options {
+        left: 8%;
+    }
+    label[for="fm-up-input-file"] {
+        font-size: 18px;
+    }
+    .row-plugins .plugins-column {
+        width: 100%;
+    }
+    .ufo-select-tpt-wrp {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+    .ufo-select-tpt {
+        width: 70%;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    .ufo-header-category {
+        display: block;
+        height: 100px;
+    }
+    .ufo-header-category div {
+        width: 100%;
+    }
+    .ufo-columns-market {
+        padding: 10px 0 0;
+    }
+    .ufo-market-item {
+        width: 100%;
+        margin: 0 0 5px 0;
+    }
+    .head-option-members {
+        display: block !important;
+    }
+}
+@media screen and (min-width: 300px) and (max-width: 400px) {
+    .file-manager .file-card-container {
+        width: 50%;
+    }
+    .fm-popup-upload-list .file .options {
+        left: 0;
+    }
+    label[for="fm-up-input-file"] {
+        font-size: 15px;
+    }
+    .fm-minimize-uploading {
+        width: 95%;
+    }
+}
+@media screen and (min-width: 400px) and (max-width: 640px) {
+    .fm-popup-upload-list .file .options {
+        left: 2%;
+    }
+    .fm-minimize-uploading .fm-upload-preview-files .options {
+        left: 11%;
+    }
+}
+@media screen and (max-width: 640px) {
+    .menu-toolbar {
+        flex-wrap: wrap;
+    }
+    .menu-editor .menu-toolbar .left,
+    .menu-editor .menu-toolbar .right {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .menu-editor .menu-toolbar .select-menu {
+        width: 80%;
+    }
+    .menu-editor .menu-toolbar .menu-add {
+        width: 15%;
+    }
+    .menu-editor .menu-toolbar .menu-positions {
+        margin-top: 10px;
+    }
+    .ufo-setting-logo-banner {
+        flex-wrap: wrap;
+    }
+}
+@media screen and (min-width: 640px) and (max-width: 1000px) {
+    .form-login {
+        width: 55%;
+    }
+    .menu {
+        width: 30%;
+        z-index: 99999;
+        position: absolute;
+        top: 69px;
+        left: -40%;
+        display: none;
+        opacity: 0;
+        height: calc(100% - 70px);
+    }
+    .menu.active {
+        display: block;
+        animation: slide-side-menu .5s ease-in both;
+    }
+    .menu.close {
+        animation: slide-close-side-menu .5s ease-out both;
+    }
+    html[dir="rtl"] .menu{
+        right: -40%;
+    }
+    html[dir="rtl"] .menu.active {
+        display: block;
+        animation: rtl-slide-side-menu .5s ease-in both;
+    }
+    html[dir="rtl"] .menu.close {
+        animation: rtl-slide-close-side-menu .5s ease-out both;
+    }
+    .media-container [data-media] {
+        width: 80%;
+    }
+    .item-menu:first-child {
+        margin-top: 10px;
+    }
+    .logo-web {
+        display: none;
+    }
+    .header-title .logo-web {
+        display: block;
+    }
+    .open-menu-side {
+        display: block;
+    }
+    .dashboard-container {
+        width: 100%;
+        padding: 2px !important;
+    }
+    .statistics-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .statistics-box {
+        width: 90%;
+        float: right;
+    }
+    .ufo-popup-modal {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .ufo-popup-modal .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+    .ufo-popup-modal .content {
+        height: 40%;
+    }
+    .ufo-popup-modal .side {
+        height: 60%;
+        min-height: 60%;
+        max-height: 60%;
+    }
+    .ufo-popup-modal .side {
+        border-radius: 20px 20px 0 0;
+    }
+    .ufo-popup-modal .footer {
+        position: absolute;
+        bottom: 10px;top: unset;
+        width: 97%;
+    }
+    .ufo-popup-modal .top {
+        height: 50%;
+    }
+    .stats-fm {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 20px 10px;
+    }
+    .fm-toolbar-wrp {
+        padding: 0 12px;
+    }
+    .fm-toolbar-wrp .container {
+        grid-template-columns: repeat(1, 1fr);
+        height: auto;
+    }
+    .fm-toolbar {
+        height: 55px;
+        width: 100%;
+        overflow: hidden;
+        flex-flow: row;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .fm-toolbar-wrp .fm-toolbar-two {
+        height: 50px;
+        width: 100%;
+        display: flex;
+    }
+    .file-manager .file-card-container {
+        width: 25%;
+    }
+    .fm-popup-upload-list .file .options {
+        left: 28%;
+    }
+    .row-plugins .plugins-column {
+        width: 48%;
+    }
+    .ufo-columns-market {
+        padding: 10px 0 0;
+    }
+    .ufo-market-item {
+        width: 48%;
+    }
+}
+@media screen and (min-width: 1000px) and (max-width: 1300px){
+    .file-manager .file-card-container {
+        width: 20%;
+    }
+}
+@media screen and (min-width: 1024px) and ( max-width: 1200px ) {
+    .menu {
+        -webkit-flex: 3;
+        -ms-flex: 3;
+        flex: 3;
+    }
+    .row-plugins .plugins-column {
+        width: 48%;
+    }
+}
+@media screen and (min-width: 1300px) and (max-width: 1920px){
+    .file-manager {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .file-manager .file-card-container {
+        width: unset;
+    }
+}
+@media screen and (min-width: 1920px) {
+    .stats-fm {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        margin: 20px 10px;
+    }
+    .file-manager {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+    }
+    .file-manager .file-card-container {
+        width: unset;
+    }
+    .file-card:hover {
+        padding: 3px;
+        cursor: pointer;
+        box-shadow: 0 0 0 0.25rem rgb(11, 94, 215);
+        transition: color .15s ease-in-out,
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
+    }
+    .menu {
+        -webkit-flex: 1.5;
+        -ms-flex: 1.5;
+        flex: 1.5;
+    }
+    .row-plugins .plugins-column {
+        width: 24.4%;
+    }
+}
+@media screen and (min-width: 2000px) {
+    .file-manager {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+    .file-manager .file-card-container .file-card {
+        width: unset;
+        height: 200px;
+    }
+    .file-card:hover {
+        padding: 3px;
+        cursor: pointer;
+        box-shadow: 0 0 0 0.25rem rgb(11, 94, 215);
+        transition: color .15s ease-in-out,
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
+    }
+    .menu {
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+    .fm-row-folders {
+        width: 99.3%;
+    }
+    .row-plugins .plugins-column {
+        width: 12%;
+    }
+}
+@media screen and (min-width: 1000px) {
+    .ufo-market-detail .plugin-info-list-properties {
+        height: calc(100% - 210px);
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(1) {
+        width: 70%;
+    }
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) {
+        width: 30%;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .side-plugin-info {
+        width: 100%;
+        display: flex !important;
+        flex: 100 !important;
+        height: 30% !important;
+        min-height: 30% !important;
+        max-height: 30% !important;
+        bottom: 0;
+        position: absolute;
+        z-index: 10;
+    }
+    .side-plugin-info .top {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .plugin-detail-logo {
+        padding: 0;
+    }
+    .plugin-detail-logo img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .plugin-detail-modal .content {
+        height: calc(100% - 200px) !important;
+        justify-content: unset;
+        align-items: unset;
+    }
+    .plugin-info-list-properties {
+        position: unset;
+        height: fit-content;
+        padding: 8px;
+    }
+    .plugin-detail-modal .side .plugin-info-list-properties {
+        height: 100%;
+    }
+    .plugin-detail-modal .container {
+        display: block !important;
+    }
+    .ufo-dashboard-widgets {
+        flex-direction: column-reverse;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0 7px;
+    }
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(1),
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) {
+        margin: 5px 0;
+        display: block;
+        width: 100%;
+    }
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) {
+        width: 100%;
+    }
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) .ufo-dashboard-widget,
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(1) .ufo-dashboard-widget {
+        height: 250px;
+        width: 96%;
+        margin: 0 0 0 5px;
+    }
+    html[dir="rtl"] .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) .ufo-dashboard-widget,
+    html[dir="rtl"] .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(1) .ufo-dashboard-widget {
+        margin: 0 5px 0 0;
+    }
+}
+@media only screen and (max-width: 680px) {
+    .ufo-dashboard-widgets {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(1),
+    .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) {
+        width: 97%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        margin-left: 10px;
+    }
+    html[dir="rtl"] .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(1),
+    html[dir="rtl"] .ufo-dashboard-widgets .ufo-dashboard-widgets-cr:nth-child(2) {
+        margin-left: 0;
+        margin-right: 10px;
+    }
+    .ufo-dashboard-widgets {
+        padding: 0;
+    }
+    .ufo-market-comments div:nth-child(2) {
+        flex: 3.5;
+    }
+}

@@ -1,0 +1,64 @@
+/**
+ * Copyright (c) 2022-2024 UFOCMS
+ *
+ * This software is licensed under the GPLv3 license.
+ * See the LICENSE file for more information.
+ */
+
+:root {
+    --font: ufocms;
+    --cl: white;
+    --bg-page: #242424;
+    --bg-menu: #0f0f0f;
+    --fix-problems-bg: #4b4b4b;
+    --layer-loader-bg: whitesmoke;
+    --admin-menu-cl: white;
+    --admin-menu-active-cl: white;
+    --admin-menu-active-bg: #4b4b4b;
+    --admin-menu-hover: rgba(255, 255, 255);
+    --admin-menu-badge: red;
+    --ufo-menu-category-item-bg: rgb(139 134 134 / 25%);
+    --ufo-menu-category-item-bg-hv: #0072ff9c;
+    --media-popup-bg: #303030;
+    --media-popup-header-bg: #4b4b4b;
+    --bg-login: white;
+    --cl-menu: white;
+    --thumb-track: #f1f1f1;
+    --thumb-scroll-thumb: #888;
+    --thumb-scroll-thumb-hover: #555;
+    --bg-loader: #242424;
+    --bg-statistics: black;
+    --cl-statistics: white;
+    --setting-item-bg: #4b4b4b;
+    --setting-item-hv-bg: #605b5b;
+    --setting-item-cl: whitesmoke;
+    --setting-item-icon-cl: white;
+    --menu-item-bg: #4b4b4b;
+    --menu-item-cl: white;
+    --table-row-bg: #282B2F;
+    --table-row-cl: white;
+    --paging-bg: #282b2f;
+    --paging-cl: white;
+    --fm-primary-bg: #4b4b4b;
+    --fm-primary-hv-bg: #585858;
+    --fm-primary-cl: whitesmoke;
+    --fm-stats-shadow: none;
+    --fm-folder-bg: #4b4b4b;
+    --fm-folder-icon-cl: yellow;
+    --fm-popup-info-bg: #353535;
+    --fm-popup-info-hr: #dddddd;
+    --popup: #4b4b4b;
+    --ctx-menu-bg: #404040;
+    --ctx-menu-bg-hv: #525252;
+    --ctx-menu-cl: white;
+    --ctx-menu-hv-cl: white;
+    --ufo-plugin-cn-bg: #4b4b4b;
+    --widget-primary-bg-color: #121212;
+    --widget-bg-color: #121212;
+    --widget-box-color: #1E1E1E;
+    --widget-icon-color: #8d8d8d;
+    --widget-header-bg: #474747;
+    --widget-text-color: #f0f0f0;
+    --widget-box-shadow: rgb(0, 0, 0, 0.35) 0px 1px 14px;
+    --ufo-update-bg: #363634;
+}

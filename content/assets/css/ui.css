@@ -1,0 +1,5033 @@
+@charset "UTF-8";
+
+/**
+ * Copyright (c) 2022-2024 UFOCMS
+ *
+ * This software is licensed under the GPLv3 license.
+ * See the LICENSE file for more information.
+ */
+
+@import "../font/all.css";
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+::-moz-focus-inner {
+    padding: 0;
+    border-style: none;
+}
+
+[type=button], button {
+    -webkit-appearance: button;
+}
+
+.panel-loader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;right: 0;left: 0;bottom: 0;margin: 0;
+    position: absolute !important;
+    z-index: 9999999999;
+}
+.panel-loader .box {
+    width: 80px;
+    height: 80px;
+    background: var(--layer-loader-bg);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.panel-loader .box i {
+    font-size: 40px;
+    color: black;
+}
+
+.btn {
+    margin: 0;
+    font-family: inherit;
+    outline: 0;
+    text-transform: none;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem !important;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.btn:hover {
+    color: #212529;
+}
+.btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+}
+.btn:disabled {
+    pointer-events: none;
+    opacity: .65;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+.btn-primary:focus {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    box-shadow: 0 0 0 .25rem rgba(49, 132, 253, .5);
+}
+.btn-primary:active {
+    color: #fff;
+    background-color: #0a58ca;
+    border-color: #0a53be;
+}
+.btn-primary:active:focus {
+    box-shadow: 0 0 0 .25rem rgba(49, 132, 253, .5);
+}
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #198754;
+    border-color: #198754;
+}
+.btn-success:hover {
+    color: #fff;
+    background-color: #157347;
+    border-color: #146c43;
+}
+.btn-success:focus {
+    color: #fff;
+    background-color: #157347;
+    border-color: #146c43;
+    box-shadow: 0 0 0 .25rem rgba(60, 153, 110, .5);
+}
+.btn-success:active {
+    color: #fff;
+    background-color: #146c43;
+    border-color: #13653f;
+}
+.btn-success:active:focus {
+    box-shadow: 0 0 0 .25rem rgba(60, 153, 110, .5);
+}
+.btn-success:disabled {
+    color: #fff;
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn-danger:hover {
+    color: #fff;
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+.btn-danger:focus {
+    color: #fff;
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+    box-shadow: 0 0 0 .25rem rgba(225, 83, 97, .5);
+}
+.btn-danger:active {
+    color: #fff;
+    background-color: #b02a37;
+    border-color: #a52834;
+}
+.btn-danger:active:focus {
+    box-shadow: 0 0 0 .25rem rgba(225, 83, 97, .5);
+}
+.btn-danger:disabled {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+.btn-light:hover {
+    color: #212529;
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+.btn-light:focus {
+    box-shadow: 0 0 0 .2rem rgba(248, 249, 250, .5);
+}
+.btn-light:disabled {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+.btn-dark {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+.btn-dark:hover {
+    color: #fff;
+    background-color: #23272b;
+    border-color: #1d2124;
+}
+.btn-dark:focus {
+    box-shadow: 0 0 0 .2rem rgba(52, 58, 64, .5);
+}
+.btn-dark:disabled {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #138496;
+    border-color: #117a8b;
+}
+.btn-info:focus {
+    box-shadow: 0 0 0 .2rem rgba(23, 162, 184, .5);
+}
+.btn-info:disabled {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-warning {
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.btn-warning:hover {
+    color: #212529;
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+.btn-warning:focus {
+    box-shadow: 0 0 0 .2rem rgba(255, 193, 7, .5);
+}
+.btn-warning:disabled {
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+.btn-secondary:focus {
+    box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5);
+}
+.btn-secondary:disabled {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+input {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    overflow: visible;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-control {
+        transition: none;
+    }
+    .btn {
+        transition: none;
+    }
+}
+
+.form-control::-ms-expand {
+    background-color: transparent;
+    border: 0;
+}
+.form-control:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #495057;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+}
+.form-control::-webkit-input-placeholder {
+    color: #495050
+}
+.form-control::-moz-placeholder {
+    color: #495050
+}
+.form-control:-ms-input-placeholder {
+    color: #495050
+}
+.form-control::-ms-input-placeholder {
+    color: #495050
+}
+.form-control::placeholder {
+    color: #495050
+}
+.form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 1
+}
+
+@media print {
+    *, ::after, ::before {
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+}
+
+input::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+input::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.form-control {
+    border: #eee 3px solid;
+    background-color: #fff;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    height: 45px;
+    transition: .3s;
+    -webkit-transition: .3s;
+    font-weight: 400;
+    color: #000000;
+    font-size: 14px;
+    padding: 0 .8rem;
+}
+.form-control:hover {
+    box-shadow: none;
+    background-color: #fff;
+    border-color: #ddd;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.form-control:focus {
+    box-shadow: none;
+    background-color: #fff;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    border-color: #0a8cce;
+    color: #000000;
+    outline: none;
+}
+.form-control:focus::-webkit-input-placeholder {
+    color: #292a2a;
+}
+.form-control:focus:-moz-placeholder {
+    color: #292a2a;
+}
+.form-control:focus::-moz-placeholder {
+    color: #292a2a;
+}
+.form-control:focus:-ms-input-placeholder {
+    color: #292a2a;
+}
+.form-control:active {
+    outline: none;
+    box-shadow: none;
+}
+input:focus {
+    outline: none;
+    box-shadow: none;
+}
+.form-control.danger {
+    border-color: red;
+}
+
+input.ufo-range-slider[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+input.ufo-range-slider[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+input.ufo-range-slider[type=range]:focus {
+    outline: none;
+}
+input.ufo-range-slider[type=range]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+input.ufo-range-slider[type=range]::-webkit-slider-runnable-track {
+    height: 0.25rem;
+    margin: 0.875rem 0;
+    background: #ddd;
+    border: none;
+}
+input.ufo-range-slider[type=range]::-moz-range-track {
+    height: 0.25rem;
+    margin: 0.875rem 0;
+    background: #ddd;
+    border: none;
+}
+input.ufo-range-slider[type=range]::-ms-track {
+    height: 0.25rem;
+    margin: 0.875rem 0;
+    background: #ddd;
+    border: none;
+}
+input.ufo-range-slider[type=range]::-webkit-slider-thumb {
+    height: 1.2rem;
+    width: 1.2rem;
+    border: 0.25rem solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+input.ufo-range-slider[type=range]:focus::-webkit-slider-thumb {
+    background: #2196f3;
+    border-width: 0;
+    box-shadow: 0 0 0 0.5rem rgba(33, 150, 243, 0.5);
+}
+input.ufo-range-slider[type=range]::-moz-range-thumb {
+    height: 1rem;
+    width: 1rem;
+    border: 0.25rem solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+input.ufo-range-slider[type=range]:focus::-moz-range-thumb {
+    background: #2196f3;
+    border-width: 0;
+    box-shadow: 0 0 0 0.5rem rgba(33, 150, 243, 0.5);
+}
+input.ufo-range-slider[type=range]::-ms-thumb {
+    height: 1rem;
+    width: 1rem;
+    border: 0.25rem solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    -ms-transition: all 0.3s;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: translateY(calc(.5rem - 50%));
+}
+input.ufo-range-slider[type=range]:focus::-ms-thumb {
+    background: #2196f3;
+    border-width: 0;
+    box-shadow: 0 0 0 0.5rem rgba(33, 150, 243, 0.5);
+}
+
+.ufo-range-container {
+    background: #f0f1f0;
+    padding: 5px 8px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-start;
+}
+.ufo-range-container input {
+    display: block;
+    height: 100%;
+    width: 35px;
+    margin: 0 0 0 10px;
+    background: transparent;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+html[dir="ltr"] .ufo-range-container span {
+    font-size: 14px;
+    top: 4px;
+    left: 4px;
+    position: relative;
+}
+
+.cursor-alias {cursor: alias}
+.cursor-all-scroll {cursor: all-scroll}
+.cursor-auto {cursor: auto}
+.cursor-cell {cursor: cell}
+.cursor-context-menu {cursor: context-menu}
+.cursor-col-resize {cursor: col-resize}
+.cursor-copy {cursor: copy}
+.cursor-crosshair {cursor: crosshair}
+.cursor-default {cursor: default}
+.cursor-e-resize {cursor: e-resize}
+.cursor-ew-resize {cursor: ew-resize}
+.cursor-grab {cursor: grab}
+.cursor-grabbing {cursor: grabbing}
+.cursor-help {cursor: help}
+.cursor-move {cursor: move}
+.cursor-n-resize {cursor: n-resize}
+.cursor-ne-resize {cursor: ne-resize}
+.cursor-nesw-resize {cursor: nesw-resize}
+.cursor-ns-resize {cursor: ns-resize}
+.cursor-nw-resize {cursor: nw-resize}
+.cursor-nwse-resize {cursor: nwse-resize}
+.cursor-no-drop {cursor: no-drop}
+.cursor-none {cursor: none}
+.cursor-not-allowed {cursor: not-allowed}
+.cursor-pointer {cursor: pointer}
+.cursor-progress {cursor: progress}
+.cursor-row-resize {cursor: row-resize}
+.cursor-s-resize {cursor: s-resize}
+.cursor-se-resize {cursor: se-resize}
+.cursor-sw-resize {cursor: sw-resize}
+.cursor-text {cursor: text}
+.cursor-w-resize {cursor: w-resize}
+.cursor-wait {cursor: wait}
+.cursor-zoom-in {cursor: zoom-in}
+.cursor-zoom-out {cursor: zoom-out}
+
+.f-right {
+    float: right;
+}
+.f-left {
+    float: left;
+}
+
+[class*=grid] {
+    display: grid;
+}
+.grid-1 {
+    grid-template-columns: repeat(1, 1fr);
+}
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+.grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+}
+.grid-6 {
+    grid-template-columns: repeat(6, 1fr);
+}
+.grid-7 {
+    grid-template-columns: repeat(7, 1fr);
+}
+.grid-8 {
+    grid-template-columns: repeat(8, 1fr);
+}
+.grid-9 {
+    grid-template-columns: repeat(9, 1fr);
+}
+.grid-10 {
+    grid-template-columns: repeat(10, 1fr);
+}
+.grid-11 {
+    grid-template-columns: repeat(11, 1fr);
+}
+.grid-12 {
+    grid-template-columns: repeat(12, 1fr);
+}
+.grid-13 {
+    grid-template-columns: repeat(13, 1fr);
+}
+.grid-14 {
+    grid-template-columns: repeat(14, 1fr);
+}
+.grid-15 {
+    grid-template-columns: repeat(15, 1fr);
+}
+.grid-16 {
+    grid-template-columns: repeat(16, 1fr);
+}
+.grid-17 {
+    grid-template-columns: repeat(17, 1fr);
+}
+.grid-18 {
+    grid-template-columns: repeat(18, 1fr);
+}
+.grid-19 {
+    grid-template-columns: repeat(19, 1fr);
+}
+.grid-20 {
+    grid-template-columns: repeat(20, 1fr);
+}
+
+.gap-1 {
+    gap: 1px
+}
+.gap-2 {
+    gap: 2px
+}
+.gap-3 {
+    gap: 3px
+}
+.gap-4 {
+    gap: 4px
+}
+.gap-5 {
+    gap: 5px
+}
+.gap-6 {
+    gap: 6px
+}
+.gap-7 {
+    gap: 7px
+}
+.gap-8 {
+    gap: 8px
+}
+.gap-9 {
+    gap: 9px
+}
+.gap-10 {
+    gap: 10px
+}
+
+.p-5px {
+    padding: 5px;
+}
+.p-10px {
+    padding: 10px;
+}
+.p-20px {
+    padding: 20px;
+}
+.p-30px {
+    padding: 30px;
+}
+.p-40px {
+    padding: 40px;
+}
+.p-50px {
+    padding: 50px;
+}
+.p-60px {
+    padding: 60px;
+}
+.p-70px {
+    padding: 70px;
+}
+.p-80px {
+    padding: 80px;
+}
+.p-90px {
+    padding: 90px;
+}
+.p-100px {
+    padding: 100px;
+}
+.p-5-cent {
+    padding: 5%;
+}
+.p-10-cent {
+    padding: 10%;
+}
+.p-20-cent {
+    padding: 20%;
+}
+.p-30-cent {
+    padding: 30%;
+}
+.p-40-cent {
+    padding: 40%;
+}
+.p-50-cent {
+    padding: 50%;
+}
+.p-60-cent {
+    padding: 60%;
+}
+.p-70-cent {
+    padding: 70%;
+}
+.p-80-cent {
+    padding: 80%;
+}
+.p-90-cent {
+    padding: 90%;
+}
+.p-100-cent {
+    padding: 100%;
+}
+
+.width-auto {
+    width: auto;
+}
+.width-25px {
+    width: 25px;
+}
+.width-50px {
+    width: 50px;
+}
+.width-75px {
+    width: 75px;
+}
+.width-100px {
+    width: 100px;
+}
+.width-25-cent {
+    width: 25%;
+}
+.width-50-cent {
+    width: 50%;
+}
+.width-75-cent {
+    width: 75%;
+}
+.width-100-cent {
+    width: 100%;
+}
+
+.height-auto {
+    height: auto;
+}
+.height-25px {
+    height: 25px;
+}
+.height-50px {
+    height: 50px;
+}
+.height-75px {
+    height: 75px;
+}
+.height-100px {
+    height: 100px;
+}
+
+.height-25-cent {
+    height: 25%;
+}
+.height-50-cent {
+    height: 50%;
+}
+.height-75-cent {
+    height: 75%;
+}
+.height-100-cent {
+    height: 100%;
+}
+
+.radius-1 {
+    border-radius: 2px
+}
+.radius-2 {
+    border-radius: 4px
+}
+.radius-3 {
+    border-radius: 6px
+}
+.radius-4 {
+    border-radius: 8px
+}
+.radius-5 {
+    border-radius: 10px
+}
+.radius-6 {
+    border-radius: 12px
+}
+
+.rounded-pill {
+    border-radius: 30px
+}
+.rounded-circle {
+    border-radius: 50%
+}
+
+.margin-0 {
+    margin: 0 !important;
+}
+.margin-1 {
+    margin: 1px !important;
+}
+.margin-2 {
+    margin: 2px !important;
+}
+.margin-3 {
+    margin: 3px !important;
+}
+.margin-4 {
+    margin: 4px !important;
+}
+.margin-5 {
+    margin: 5px !important;
+}
+.margin-10 {
+    margin: 10px !important;
+}
+.margin-15 {
+    margin: 15px !important;
+}
+.margin-20 {
+    margin: 20px !important;
+}
+.margin-25 {
+    margin: 25px !important;
+}
+.margin-30 {
+    margin: 30px !important;
+}
+.margin-35 {
+    margin: 35px !important;
+}
+.margin-40 {
+    margin: 40px !important;
+}
+.margin-45 {
+    margin: 45px !important;
+}
+.margin-50 {
+    margin: 50px !important;
+}
+.margin-55 {
+    margin: 55px !important;
+}
+.margin-60 {
+    margin: 60px !important;
+}
+.margin-65 {
+    margin: 65px !important;
+}
+.margin-70 {
+    margin: 70px !important;
+}
+.margin-75 {
+    margin: 75px !important;
+}
+.margin-80 {
+    margin: 80px !important;
+}
+.margin-85 {
+    margin: 85px !important;
+}
+.margin-90 {
+    margin: 90px !important;
+}
+.margin-95 {
+    margin: 95px !important;
+}
+.margin-100 {
+    margin: 100px !important;
+}
+.mt-1 {
+    margin-top: 1px !important;
+}
+.mt-2 {
+    margin-top: 2px !important;
+}
+.mt-3 {
+    margin-top: 3px !important;
+}
+.mt-4 {
+    margin-top: 4px !important;
+}
+.mt-5 {
+    margin-top: 5px !important;
+}
+.mt-10 {
+    margin-top: 10px !important;
+}
+.mt-15 {
+    margin-top: 15px !important;
+}
+.mt-20 {
+    margin-top: 20px !important;
+}
+.mt-25 {
+    margin-top: 25px !important;
+}
+.mt-30 {
+    margin-top: 30px !important;
+}
+.mt-35 {
+    margin-top: 35px !important;
+}
+.mt-40 {
+    margin-top: 40px !important;
+}
+.mt-45 {
+    margin-top: 45px !important;
+}
+.mt-50 {
+    margin-top: 50px !important;
+}
+.mt-55 {
+    margin-top: 55px !important;
+}
+.mt-60 {
+    margin-top: 60px !important;
+}
+.mt-65 {
+    margin-top: 65px !important;
+}
+.mt-70 {
+    margin-top: 70px !important;
+}
+.mt-75 {
+    margin-top: 75px !important;
+}
+.mt-80 {
+    margin-top: 80px !important;
+}
+.mt-85 {
+    margin-top: 85px !important;
+}
+.mt-90 {
+    margin-top: 90px !important;
+}
+.mt-95 {
+    margin-top: 95px !important;
+}
+.mt-100 {
+    margin-top: 100px !important;
+}
+.mb-1 {
+    margin-bottom: 1px !important;
+}
+.mb-2 {
+    margin-bottom: 2px !important;
+}
+.mb-3 {
+    margin-bottom: 3px !important;
+}
+.mb-4 {
+    margin-bottom: 4px !important;
+}
+.mb-5 {
+    margin-bottom: 5px !important;
+}
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+.mb-15 {
+    margin-bottom: 15px !important;
+}
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+.mb-25 {
+    margin-bottom: 25px !important;
+}
+.mb-30 {
+    margin-bottom: 30px !important;
+}
+.mb-35 {
+    margin-bottom: 35px !important;
+}
+.mb-40 {
+    margin-bottom: 40px !important;
+}
+.mb-45 {
+    margin-bottom: 45px !important;
+}
+.mb-50 {
+    margin-bottom: 50px !important;
+}
+.mb-55 {
+    margin-bottom: 55px !important;
+}
+.mb-60 {
+    margin-bottom: 60px !important;
+}
+.mb-65 {
+    margin-bottom: 65px !important;
+}
+.mb-70 {
+    margin-bottom: 70px !important;
+}
+.mb-75 {
+    margin-bottom: 75px !important;
+}
+.mb-80 {
+    margin-bottom: 80px !important;
+}
+.mb-85 {
+    margin-bottom: 85px !important;
+}
+.mb-90 {
+    margin-bottom: 90px !important;
+}
+.mb-95 {
+    margin-bottom: 95px !important;
+}
+.mb-100 {
+    margin-bottom: 100px !important;
+}
+.mr-1 {
+    margin-right: 1px !important;
+}
+.mr-2 {
+    margin-right: 2px !important;
+}
+.mr-3 {
+    margin-right: 3px !important;
+}
+.mr-4 {
+    margin-right: 4px !important;
+}
+.mr-5 {
+    margin-right: 5px !important;
+}
+.mr-10 {
+    margin-right: 10px !important;
+}
+.mr-15 {
+    margin-right: 15px !important;
+}
+.mr-20 {
+    margin-right: 20px !important;
+}
+.mr-25 {
+    margin-right: 25px !important;
+}
+.mr-30 {
+    margin-right: 30px !important;
+}
+.mr-35 {
+    margin-right: 35px !important;
+}
+.mr-40 {
+    margin-right: 40px !important;
+}
+.mr-45 {
+    margin-right: 45px !important;
+}
+.mr-50 {
+    margin-right: 50px !important;
+}
+.mr-55 {
+    margin-right: 55px !important;
+}
+.mr-60 {
+    margin-right: 60px !important;
+}
+.mr-65 {
+    margin-right: 65px !important;
+}
+.mr-70 {
+    margin-right: 70px !important;
+}
+.mr-75 {
+    margin-right: 75px !important;
+}
+.mr-80 {
+    margin-right: 80px !important;
+}
+.mr-85 {
+    margin-right: 85px !important;
+}
+.mr-90 {
+    margin-right: 90px !important;
+}
+.mr-95 {
+    margin-right: 95px !important;
+}
+.mr-100 {
+    margin-right: 100px !important;
+}
+.ml-1 {
+    margin-left: 1px !important;
+}
+.ml-2 {
+    margin-left: 2px !important;
+}
+.ml-3 {
+    margin-left: 3px !important;
+}
+.ml-4 {
+    margin-left: 4px !important;
+}
+.ml-5 {
+    margin-left: 5px !important;
+}
+.ml-10 {
+    margin-left: 10px !important;
+}
+.ml-15 {
+    margin-left: 15px !important;
+}
+.ml-20 {
+    margin-left: 20px !important;
+}
+.ml-25 {
+    margin-left: 25px !important;
+}
+.ml-30 {
+    margin-left: 30px !important;
+}
+.ml-35 {
+    margin-left: 35px !important;
+}
+.ml-40 {
+    margin-left: 40px !important;
+}
+.ml-45 {
+    margin-left: 45px !important;
+}
+.ml-50 {
+    margin-left: 50px !important;
+}
+.ml-55 {
+    margin-left: 55px !important;
+}
+.ml-60 {
+    margin-left: 60px !important;
+}
+.ml-65 {
+    margin-left: 65px !important;
+}
+.ml-70 {
+    margin-left: 70px !important;
+}
+.ml-75 {
+    margin-left: 75px !important;
+}
+.ml-80 {
+    margin-left: 80px !important;
+}
+.ml-85 {
+    margin-left: 85px !important;
+}
+.ml-90 {
+    margin-left: 90px !important;
+}
+.ml-95 {
+    margin-left: 95px !important;
+}
+.ml-100 {
+    margin-left: 100px !important;
+}
+
+.top-1 {
+    top: 1px !important;
+}
+.top-2 {
+    top: 2px !important;
+}
+.top-3 {
+    top: 3px !important;
+}
+.top-4 {
+    top: 4px !important;
+}
+.top-5 {
+    top: 5px !important;
+}
+.top-10 {
+    top: 10px !important;
+}
+.top-15 {
+    top: 15px !important;
+}
+.top-20 {
+    top: 20px !important;
+}
+.top-25 {
+    top: 25px !important;
+}
+.top-30 {
+    top: 30px !important;
+}
+.top-35 {
+    top: 35px !important;
+}
+.top-40 {
+    top: 40px !important;
+}
+.top-45 {
+    top: 45px !important;
+}
+.top-50 {
+    top: 50px !important;
+}
+.top-55 {
+    top: 55px !important;
+}
+.top-60 {
+    top: 60px !important;
+}
+.top-65 {
+    top: 65px !important;
+}
+.top-70 {
+    top: 70px !important;
+}
+.top-75 {
+    top: 75px !important;
+}
+.top-80 {
+    top: 80px !important;
+}
+.top-85 {
+    top: 85px !important;
+}
+.top-90 {
+    top: 90px !important;
+}
+.top-95 {
+    top: 95px !important;
+}
+.top-100 {
+    top: 100px !important;
+}
+
+.bottom-1 {
+    bottom: 1px !important;
+}
+.bottom-2 {
+    bottom: 2px !important;
+}
+.bottom-3 {
+    bottom: 3px !important;
+}
+.bottom-4 {
+    bottom: 4px !important;
+}
+.bottom-5 {
+    bottom: 5px !important;
+}
+.bottom-10 {
+    bottom: 10px !important;
+}
+.bottom-15 {
+    bottom: 15px !important;
+}
+.bottom-20 {
+    bottom: 20px !important;
+}
+.bottom-25 {
+    bottom: 25px !important;
+}
+.bottom-30 {
+    bottom: 30px !important;
+}
+.bottom-35 {
+    bottom: 35px !important;
+}
+.bottom-40 {
+    bottom: 40px !important;
+}
+.bottom-45 {
+    bottom: 45px !important;
+}
+.bottom-50 {
+    bottom: 50px !important;
+}
+.bottom-55 {
+    bottom: 55px !important;
+}
+.bottom-60 {
+    bottom: 60px !important;
+}
+.bottom-65 {
+    bottom: 65px !important;
+}
+.bottom-70 {
+    bottom: 70px !important;
+}
+.bottom-75 {
+    bottom: 75px !important;
+}
+.bottom-80 {
+    bottom: 80px !important;
+}
+.bottom-85 {
+    bottom: 85px !important;
+}
+.bottom-90 {
+    bottom: 90px !important;
+}
+.bottom-95 {
+    bottom: 95px !important;
+}
+.bottom-100 {
+    bottom: 100px !important;
+}
+
+.right-1 {
+    right: 5px !important;
+}
+.right-2 {
+    right: 2px !important;
+}
+.right-3 {
+    right: 3px !important;
+}
+.right-4 {
+    right: 4px !important;
+}
+.right-5 {
+    right: 5px !important;
+}
+.right-10 {
+    right: 10px !important;
+}
+.right-15 {
+    right: 15px !important;
+}
+.right-20 {
+    right: 20px !important;
+}
+.right-25 {
+    right: 25px !important;
+}
+.right-30 {
+    right: 30px !important;
+}
+.right-35 {
+    right: 35px !important;
+}
+.right-40 {
+    right: 40px !important;
+}
+.right-45 {
+    right: 45px !important;
+}
+.right-50 {
+    right: 50px !important;
+}
+.right-55 {
+    right: 55px !important;
+}
+.right-60 {
+    right: 60px !important;
+}
+.right-65 {
+    right: 65px !important;
+}
+.right-70 {
+    right: 70px !important;
+}
+.right-75 {
+    right: 75px !important;
+}
+.right-80 {
+    right: 80px !important;
+}
+.right-85 {
+    right: 85px !important;
+}
+.right-90 {
+    right: 90px !important;
+}
+.right-95 {
+    right: 95px !important;
+}
+.right-100 {
+    right: 100px !important;
+}
+
+.left-1 {
+    left: 1px !important;
+}
+.left-2 {
+    left: 2px !important;
+}
+.left-3 {
+    left: 3px !important;
+}
+.left-4 {
+    left: 4px !important;
+}
+.left-5 {
+    left: 5px !important;
+}
+.left-10 {
+    left: 10px !important;
+}
+.left-15 {
+    left: 15px !important;
+}
+.left-20 {
+    left: 20px !important;
+}
+.left-25 {
+    left: 25px !important;
+}
+.left-30 {
+    left: 30px !important;
+}
+.left-35 {
+    left: 35px !important;
+}
+.left-40 {
+    left: 40px !important;
+}
+.left-45 {
+    left: 45px !important;
+}
+.left-50 {
+    left: 50px !important;
+}
+.left-55 {
+    left: 55px !important;
+}
+.left-60 {
+    left: 60px !important;
+}
+.left-65 {
+    left: 65px !important;
+}
+.left-70 {
+    left: 70px !important;
+}
+.left-75 {
+    left: 75px !important;
+}
+.left-80 {
+    left: 80px !important;
+}
+.left-85 {
+    left: 85px !important;
+}
+.left-90 {
+    left: 90px !important;
+}
+.left-95 {
+    left: 95px !important;
+}
+.left-100 {
+    left: 100px !important;
+}
+
+.font-size-1px {
+    font-size: 1px !important
+}
+.font-size-2px {
+    font-size: 2px !important
+}
+.font-size-3px {
+    font-size: 3px !important
+}
+.font-size-4px {
+    font-size: 4px !important
+}
+.font-size-5px {
+    font-size: 5px !important
+}
+.font-size-6px {
+    font-size: 6px !important
+}
+.font-size-7px {
+    font-size: 7px !important
+}
+.font-size-8px {
+    font-size: 8px !important
+}
+.font-size-9px {
+    font-size: 9px !important
+}
+.font-size-10px {
+    font-size: 10px !important
+}
+.font-size-11px {
+    font-size: 11px !important
+}
+.font-size-12px {
+    font-size: 12px !important
+}
+.font-size-13px {
+    font-size: 13px !important
+}
+.font-size-14px {
+    font-size: 14px !important
+}
+.font-size-15px {
+    font-size: 15px !important
+}
+.font-size-16px {
+    font-size: 16px !important
+}
+.font-size-17px {
+    font-size: 17px !important
+}
+.font-size-18px {
+    font-size: 18px !important
+}
+.font-size-19px {
+    font-size: 19px !important
+}
+.font-size-20px {
+    font-size: 20px !important
+}
+.font-size-21px {
+    font-size: 21px !important
+}
+.font-size-22px {
+    font-size: 22px !important
+}
+.font-size-23px {
+    font-size: 23px !important
+}
+.font-size-24px {
+    font-size: 24px !important
+}
+.font-size-25px {
+    font-size: 25px !important
+}
+.font-size-26px {
+    font-size: 26px !important
+}
+.font-size-27px {
+    font-size: 27px !important
+}
+.font-size-28px {
+    font-size: 28px !important
+}
+.font-size-29px {
+    font-size: 29px !important
+}
+.font-size-30px {
+    font-size: 30px !important
+}
+
+.font-lighter {
+    font-weight: lighter
+}
+.font-normal {
+    font-weight: normal
+}
+.font-bold {
+    font-weight: bold
+}
+.font-bolder {
+    font-weight: bolder
+}
+
+.flex {
+    display: flex
+}
+.flex-start {
+    justify-content: flex-start
+}
+.flex-end {
+    justify-content: flex-end
+}
+.flex-left {
+    justify-content: left
+}
+.flex-right {
+    justify-content: right
+}
+.flex-direction-column {
+    flex-direction: column
+}
+.flex-center {
+    justify-content: center;
+    justify-items: center
+}
+.align-center {
+    align-items: center;
+    align-content: center
+}
+.align-start {
+    align-items: flex-start;
+    align-content: flex-start
+}
+.align-end {
+    align-items: flex-end;
+    align-content: flex-end
+}
+.space-between {
+    justify-content: space-between
+}
+
+.f-right {
+    float: right !important
+}
+.f-left {
+    float: left !important
+}
+
+.dir-ltr {
+    direction: ltr
+}
+.dir-rtl {
+    direction: rtl
+}
+
+.cl-warn {
+    color: orange
+}
+.cl-gold {
+    color: gold
+}
+.cl-yellow {
+    color: yellow
+}
+.cl-black {
+    color: black
+}
+.cl-light {
+    color: white
+}
+.cl-danger {
+    color: red
+}
+.cl-info {
+    color: #0a8cce
+}
+.cl-silver {
+    color: silver
+}
+.cl-success {
+    color: #198754FF
+}
+
+.overflow-auto {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    display: block
+}
+
+.dn {
+    display: none !important
+}
+.db {
+    display: block !important
+}
+.dib {
+    display: inline-block
+}
+
+.position-absolute {
+    position: absolute
+}
+.position-relative {
+    position: relative
+}
+.position-sticky {
+    position: sticky
+}
+.position-static {
+    position: static
+}
+
+.event-none {
+    pointer-events: none
+}
+.user-select-none {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none
+}
+
+.system-notice {
+    width: 100%;
+    height: auto;
+    min-height: 30px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+.system-notice-danger {
+    border-color: red !important
+}
+.system-float-notice-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+.system-float-notice {
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 8px;
+}
+.system-float-notice.right {
+    justify-content: right
+}
+.system-float-notice.center {
+    justify-content: center;
+    align-items: center
+}
+.system-float-notice.left {
+    justify-content: left
+}
+.system-float-notice .content {
+    width: auto;
+    height: 50px;
+    background: #EEEEEE;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.system-float-notice .content .icon {
+    height: 40px;
+    width: 40px;
+    background: blue;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: white;
+    margin: 0 -10px 0 10px;
+}
+.system-float-notice .content .icon.danger {
+    background: red;
+}
+.system-float-notice .content .icon.warn {
+    background: orange;
+}
+.system-float-notice .content .icon.success {
+    background: green;
+}
+.system-float-notice .content .icon.success {
+    background: green;
+}
+.system-float-notice .content .icon.info {
+    background: #5454f9;
+}
+body[data-theme="dark"] .system-float-notice .content span {
+    color: black;
+}
+
+html[dir="ltr"] .system-float-notice .content .icon {
+    margin: 0 10px 0 -15px;
+}
+body[data-theme="dark"] .system-float-notice .content .icon {
+    color: white;
+}
+
+.ufo-resize-animate:before {
+    font-family: "ufo-icon";
+    content: "\e9a5";
+    font-style: normal;
+    animation: icon-resize 1s infinite ease-out;
+}
+
+html[dir="rtl"] input.rtl-to-ltr-placeholder {
+    direction: ltr;
+}
+html[dir="rtl"] input.rtl-to-ltr-placeholder:-moz-placeholder {
+    text-align: right;
+}
+html[dir="rtl"] input.rtl-to-ltr-placeholder:-ms-input-placeholder {
+    text-align: right;
+}
+html[dir="rtl"] input.rtl-to-ltr-placeholder::-webkit-input-placeholder {
+    text-align: right;
+}
+
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    .ufo-modern-inputs[type=checkbox],
+    .ufo-modern-inputs[type=radio] {
+        --active: #275EFE;
+        --active-inner: #fff;
+        --focus: 2px rgba(39, 94, 254, .3);
+        --border: #BBC1E1;
+        --border-hover: #275EFE;
+        --background: #fff;
+        --disabled: #F6F8FF;
+        --disabled-inner: #E1E6F9;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        height: 28px;
+        outline: none;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        margin: 0;
+        cursor: pointer;
+        border: 1px solid var(--bc, var(--border));
+        background: var(--b, var(--background));
+        transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+    }
+    .ufo-modern-inputs[type=checkbox]:after,
+    .ufo-modern-inputs[type=radio]:after {
+        content: "";
+        display: block;
+        left: 0;
+        top: 0;
+        position: absolute;
+        transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+    }
+    .ufo-modern-inputs[type=checkbox]:checked,
+    .ufo-modern-inputs[type=radio]:checked {
+        --b: var(--active);
+        --bc: var(--active);
+        --d-o: .3s;
+        --d-t: .6s;
+        --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+    }
+    .ufo-modern-inputs[type=checkbox]:disabled,
+    .ufo-modern-inputs[type=radio]:disabled {
+        --b: var(--disabled);
+        cursor: not-allowed;
+        opacity: 0.9;
+    }
+    .ufo-modern-inputs[type=checkbox]:disabled:checked,
+    .ufo-modern-inputs[type=radio]:disabled:checked {
+        --b: var(--disabled-inner);
+        --bc: var(--border);
+    }
+    .ufo-modern-inputs[type=checkbox]:disabled + label,
+    .ufo-modern-inputs[type=radio]:disabled + label {
+        cursor: not-allowed;
+    }
+    .ufo-modern-inputs[type=checkbox]:hover:not(:checked):not(:disabled),
+    .ufo-modern-inputs[type=radio]:hover:not(:checked):not(:disabled) {
+        --bc: var(--border-hover);
+    }
+    .ufo-modern-inputs[type=checkbox]:focus,
+    .ufo-modern-inputs[type=radio]:focus {
+        box-shadow: 0 0 0 var(--focus);
+    }
+    .ufo-modern-inputs[type=checkbox]:not(.switch),
+    .ufo-modern-inputs[type=radio]:not(.switch) {
+        width: 21px;
+    }
+    .ufo-modern-inputs[type=checkbox]:not(.switch):after,
+    .ufo-modern-inputs[type=radio]:not(.switch):after {
+        opacity: var(--o, 0);
+    }
+    .ufo-modern-inputs[type=checkbox]:not(.switch):checked,
+    .ufo-modern-inputs[type=radio]:not(.switch):checked {
+        --o: 1;
+    }
+    .ufo-modern-inputs[type=checkbox] + label,
+    .ufo-modern-inputs[type=radio] + label {
+        font-size: 14px;
+        line-height: 21px;
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        margin-left: 4px;
+    }
+    .ufo-modern-inputs[type=checkbox]:not(.switch) {
+        border-radius: 7px;
+    }
+    .ufo-modern-inputs[type=checkbox]:not(.switch):after {
+        width: 5px;
+        height: 9px;
+        border: 2px solid var(--active-inner);
+        border-top: 0;
+        border-left: 0;
+        left: 7px;
+        top: 4px;
+        transform: rotate(var(--r, 20deg));
+    }
+    .ufo-modern-inputs[type=checkbox]:not(.switch):checked {
+        --r: 43deg;
+    }
+    .ufo-modern-inputs[type=checkbox].switch {
+        width: 60px;
+        border-radius: 15px;
+    }
+    .ufo-modern-inputs[type=checkbox].switch:after {
+        left: 2px;
+        top: 2px;
+        border-radius: 50%;
+        width: 21px;
+        height: 21px;
+        background: var(--ab, var(--border));
+        transform: translateX(var(--x, 0));
+    }
+    .ufo-modern-inputs[type=checkbox].switch:checked {
+        --ab: var(--active-inner);
+        --x: 32px;
+    }
+    .ufo-modern-inputs[type=checkbox].switch:disabled:not(:checked):after {
+        opacity: 0.6;
+    }
+    .ufo-modern-inputs[type=radio] {
+        border-radius: 50%;
+    }
+    .ufo-modern-inputs[type=radio]:after {
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background: var(--active-inner);
+        opacity: 0;
+        transform: scale(var(--s, 0.7));
+    }
+    .ufo-modern-inputs[type=radio]:checked {
+        --s: .5;
+    }
+}
+
+body:has(.ufo-error) {
+    overflow-y: auto;
+    overflow-x: hidden !important;
+    scrollbar-color: var(--thumb-scroll-thumb) var(--thumb-track);
+    scrollbar-width: thin;
+}
+
+.ufo-error {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-color: #eee;
+    border-left-width: 5px;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+    border-radius: 3px;
+    margin: 10px auto;
+    font-size: 16px;
+    overflow: auto;
+}
+.ufo-error.danger {
+    border-left-color: #d9534f;
+    background-color: rgba(217, 83, 79, 0.1);
+}
+.ufo-error.warning {
+    border-left-color: #f0ad4e;
+    background-color: rgba(240, 173, 78, 0.1);
+}
+.ufo-error.info {
+    border-left-color: #5bc0de;
+    background-color: rgba(91, 192, 222, 0.1);
+}
+.ufo-error.success {
+    border-left-color: #2b542c;
+    background-color: rgba(43, 84, 44, 0.1);
+}
+
+.ufo-error.info strong * {
+    color: #5bc0de;
+}
+.ufo-error.danger strong * {
+    color:#d9534f;
+}
+.ufo-error.warning strong * {
+    color:#f0ad4e;
+}
+.ufo-error.success strong * {
+    color: #2b542c;
+}
+
+.ufo-error {
+    font-family: ufocms;
+    border: 1px solid #eee;
+    border-left-width:5px;
+    border-right: unset;
+}
+.ufo-error.danger {
+    border-left-color: #d9534f;
+    background-color: rgba(217, 83, 79, 0.1);
+}
+.ufo-error.danger strong {
+    color: #d9534f;
+}
+.ufo-error.warning {
+    border-left-color: #f0ad4e;
+    background-color: rgba(240, 173, 78, 0.1);
+}
+.ufo-error.warning strong {
+    color: #f0ad4e;
+}
+.ufo-error.info {
+    border-left-color: #5bc0de;
+    background-color: rgba(91, 192, 222, 0.1);
+}
+.ufo-error.info strong {
+    color: #5bc0de;
+}
+.ufo-error.success {
+    border-left-color: #2b542c;
+    background-color: rgba(43, 84, 44, 0.1);
+}
+.ufo-error.success strong {
+    color: #2b542c;
+}
+
+html[dir="rtl"] .ufo-error {
+    border: 1px solid #eee;
+    border-right-width: 5px;
+    border-left: none;
+}
+html[dir="rtl"] .ufo-error.danger {
+    border-right-color: #d9534f;
+    background-color: rgba(217, 83, 79, 0.1);
+}
+html[dir="rtl"] .ufo-error.danger strong {
+    color: #d9534f;
+}
+html[dir="rtl"] .ufo-error.warning {
+    border-right-color: #f0ad4e;
+    background-color: rgba(240, 173, 78, 0.1);
+}
+html[dir="rtl"] .ufo-error.warning strong {
+    color: #f0ad4e;
+}
+html[dir="rtl"] .ufo-error.info {
+    border-right-color: #5bc0de;
+    background-color: rgba(91, 192, 222, 0.1);
+}
+html[dir="rtl"] .ufo-error.info strong {
+    color: #5bc0de;
+}
+html[dir="rtl"] .ufo-error.success {
+    border-right-color: #2b542c;
+    background-color: rgba(43, 84, 44, 0.1);
+}
+html[dir="rtl"] .ufo-error.success strong {
+    color: #2b542c;
+}
+
+.ufo-code-container {
+    width: 100%;
+    list-style: none;
+    counter-reset: item;
+}
+.ufo-code-container * {
+    font-family: ufocms !important;
+}
+.ufo-code-container li {
+    counter-increment: item;
+    display: flex;
+    overflow: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.ufo-code-container li:before {
+    content: counter(item);
+    background: #4b4b4b;
+    min-width: 35px;
+    text-align: center;
+    border-bottom: 1px #f5eaea solid;
+    padding: 6px;
+    font-size: 15px;
+    color: white;
+}
+.ufo-code-container li:nth-child(odd) {
+    background: #f5eaea;
+}
+.ufo-code-container li::marker {
+    background: #f5eaea;
+}
+.ufo-code-container li pre {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+body[data-theme="dark"] .ufo-code-container li:nth-child(odd) {
+    background: #343434;
+}
+body[data-theme="dark"] .ufo-code-container li:before {
+    border-bottom: 1px #343434 solid;
+}
+
+.circle-solid {
+    width: 50px;
+    height: 50px;
+    border: #e4e4e4 3px solid;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+.circle-solid.info {
+    border-color: deepskyblue;
+}
+.circle-solid.warn {
+    border-color: orange;
+}
+.circle-solid.danger {
+    border-color: red;
+}
+.circle-solid.success {
+    border-color: green;
+}
+
+.ufo-circle-step-items {
+    display: grid;
+}
+.ufo-circle-step-items ul {
+    width: 100%;
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    margin-top: -50px;
+    padding: 0;
+}
+.ufo-circle-step-items ul li {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 40px;
+    color: rgb(100, 100, 100);
+    border: 5px solid rgb(100, 100, 100);
+    border-radius: 100%;
+    background: #FFFFF0;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-step-circle-pages {
+    display: none;
+}
+.ufo-circle-step-items.complete {
+    border-color:blue !important;
+    background-color: blue !important;
+    color: white !important;
+}
+.ufo-circle-step-items.active {
+    border-color: blue !important;
+    color: blue !important;
+}
+.ufo-circle-steps-empty {
+    height: 5px;
+    width: 100%;
+    margin: 22.5px 0;
+    background: rgb(100, 100, 100);
+}
+.ufo-circle-steps-complete {
+    margin-top: -27.5px;
+    width: 0;
+    height: 5px;
+    background: blue;
+    transition: 0.5s;
+}
+
+.ufo-head-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.ufo-head-title .text {
+    border-bottom: blue 3px solid;
+    font-family: 'ufocms';
+    padding: 10px;
+    font-size: 20px;
+    margin: 0;
+}
+
+.ufo-list-info {
+    width: 100%;
+    height: auto;
+    border: 3px solid silver;
+    border-radius: 6px;
+    padding: 0;
+}
+.ufo-list-info li {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 3px solid silver;
+}
+.ufo-list-info li:last-child {
+    border-bottom: 0;
+}
+.ufo-list-info li .title {
+    flex: 30;
+    -webkit-flex: 30;
+    display: block;
+    padding: 8px;
+    font-size: 17px;
+    overflow: auto;
+    word-wrap: break-word;
+    white-space:pre-wrap;
+    line-height: 1.5;
+}
+html[dir="ltr"] .ufo-list-info li .title {
+    border-right: 3px solid silver;
+}
+html[dir="rtl"] .ufo-list-info li .title {
+    border-left: 3px solid silver;
+}
+.ufo-list-info li .description {
+    flex: 70;
+    -webkit-flex: 70;
+    display: block;
+    overflow: auto;
+    word-wrap: break-word;
+    white-space:pre-wrap;
+    line-height: 1.5;
+    padding: 10px;
+}
+
+.progress-bar-container {
+    height: 4px;
+    background-color: rgba(5, 114, 206, 0.2);
+    width: 100%;
+    overflow: hidden;
+}
+.progress-bar-container .progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(5, 114, 206);
+    animation: indeterminateAnimation 1s infinite linear;
+    transform-origin: 0% 50%;
+}
+
+.ufo-accordion {
+    min-height: 50px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: rgb(0 0 0 / 16%) 0 1px 4px;
+    margin: 0 0 10px;
+}
+
+@keyframes indeterminateAnimation {
+    0% {
+        transform:  translateX(0) scaleX(0);
+    }
+    40% {
+        transform:  translateX(0) scaleX(0.4);
+    }
+    100% {
+        transform:  translateX(100%) scaleX(0.5);
+    }
+}
+@keyframes icon-resize {
+    from {content: "\e9ad";}
+    to {content: "\e9a5";}
+}
+
+.ufo-tabs {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    overflow: hidden;
+    padding: 10px 0 0 0;
+}
+.ufo-tabs .ufo-tabs-items {
+    min-width: 100px;
+    height: 35px;
+    border-radius: 30px;
+    background: var(--ufo-menu-category-item-bg);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0 0 0 10px;
+    font-size: 15px;
+    padding: 0 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+}
+.ufo-tabs .ufo-tabs-items.active {
+    margin-top: -5px;
+    background: var(--ufo-menu-category-item-bg-hv);
+}
+.ufo-tabs .ufo-tabs-items.active,
+.ufo-tabs .ufo-tabs-items:hover {
+    margin-top: -5px;
+    background: var(--ufo-menu-category-item-bg-hv);
+}
+body[data-theme="light"] .ufo-tabs-items.active,
+body[data-theme="light"] .ufo-tabs-items:hover {
+    color: white;
+}
+.ufo-tabs-pages {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    display: none;
+}
+.ufo-tabs-pages.active {
+    display: block;
+}
+
+.ufo-badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+.ufo-badge:empty {
+    display: none;
+}
+.ufo-badge {
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem;
+}
+.ufo-badge.primary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 123, 255);
+}
+.ufo-badge.secondary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(108, 117, 125);
+}
+.ufo-badge.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(40, 167, 69);
+}
+.ufo-badge.danger {
+    color: rgb(255, 255, 255);
+    background-color: rgb(220, 53, 69);
+}
+.ufo-badge.warning {
+    color: rgb(33, 37, 41);
+    background-color: rgb(255, 193, 7);
+}
+.ufo-badge.info {
+    color: rgb(255, 255, 255);
+    background-color: rgb(23, 162, 184);
+}
+.ufo-badge.light {
+    color: rgb(33, 37, 41);
+    background-color: rgb(248, 249, 250);
+}
+.ufo-badge.dark {
+    color: rgb(255, 255, 255);
+    background-color: rgb(52, 58, 64);
+}
+@media print {
+    *, ::after, ::before {
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+    .badge {
+        border: 1px solid #000;
+    }
+}
+
+.ufo-layer-lock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--fix-problems-bg);
+    z-index: 99999999;
+}
+
+[contenteditable][placeholder]:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+}
+
+.rotating {
+    display: block !important;
+    -webkit-animation: rotating 2s linear infinite !important;
+    -moz-animation: rotating 2s linear infinite !important;
+    -ms-animation: rotating 2s linear infinite !important;
+    -o-animation: rotating 2s linear infinite !important;
+    animation: rotating 2s linear infinite !important;
+}
+@-webkit-keyframes rotating {
+    from {
+        -webkit-transform: rotate(0deg) !important;
+        -o-transform: rotate(0deg) !important;
+        transform: rotate(0deg) !important;
+    }
+    to {
+        -webkit-transform: rotate(360deg) !important;
+        -o-transform: rotate(360deg) !important;
+        transform: rotate(360deg) !important;
+    }
+}
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+:root {
+    --animation-duration: 1s
+}
+
+.ufo-animated {
+    animation-duration: var(--animation-duration);
+    animation-fill-mode: both
+}
+.ufo-animated.infinite {
+    animation-iteration-count: infinite
+}
+.ufo-animated.hinge {
+    animation-duration: 2s
+}
+.ufo-animated.bounceIn,
+.ufo-animated.bounceOut,
+.ufo-animated.flipOutX,
+.ufo-animated.flipOutY {
+    animation-duration: .75s
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, to {
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1);
+        transform: translateZ(0)
+    }
+    40%, 43% {
+        animation-timing-function: cubic-bezier(.755, .05, .855, .06);
+        transform: translate3d(0, -30px, 0)
+    }
+    70% {
+        animation-timing-function: cubic-bezier(.755, .05, .855, .06);
+        transform: translate3d(0, -15px, 0)
+    }
+    90% {
+        transform: translate3d(0, -4px, 0)
+    }
+}
+.ufo-bounce {
+    animation-name: bounce;
+    transform-origin: center bottom
+}
+@keyframes flash {
+    0%, 50%, to {
+        opacity: 1
+    }
+    25%, 75% {
+        opacity: 0
+    }
+}
+.ufo-flash {
+    animation-name: flash
+}
+@keyframes pulse {
+    0% {
+        transform: scaleX(1)
+    }
+    50% {
+        transform: scale3d(1.05, 1.05, 1.05)
+    }
+    to {
+        transform: scaleX(1)
+    }
+}
+.ufo-pulse {
+    animation-name: pulse
+}
+@keyframes rubberBand {
+    0% {
+        transform: scaleX(1)
+    }
+    30% {
+        transform: scale3d(1.25, .75, 1)
+    }
+    40% {
+        transform: scale3d(.75, 1.25, 1)
+    }
+    50% {
+        transform: scale3d(1.15, .85, 1)
+    }
+    65% {
+        transform: scale3d(.95, 1.05, 1)
+    }
+    75% {
+        transform: scale3d(1.05, .95, 1)
+    }
+    to {
+        transform: scaleX(1)
+    }
+}
+.ufo-rubberBand {
+    animation-name: rubberBand
+}
+@keyframes shake {
+    0%, to {
+        transform: translateZ(0)
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translate3d(-10px, 0, 0)
+    }
+    20%, 40%, 60%, 80% {
+        transform: translate3d(10px, 0, 0)
+    }
+}
+.ufo-shake {
+    animation-name: shake
+}
+@keyframes headShake {
+    0% {
+        transform: translateX(0)
+    }
+    6.5% {
+        transform: translateX(-6px) rotateY(-9deg)
+    }
+    18.5% {
+        transform: translateX(5px) rotateY(7deg)
+    }
+    31.5% {
+        transform: translateX(-3px) rotateY(-5deg)
+    }
+    43.5% {
+        transform: translateX(2px) rotateY(3deg)
+    }
+    50% {
+        transform: translateX(0)
+    }
+}
+.ufo-headShake {
+    animation-timing-function: ease-in-out;
+    animation-name: headShake
+}
+@keyframes swing {
+    20% {
+        transform: rotate(15deg)
+    }
+    40% {
+        transform: rotate(-10deg)
+    }
+    60% {
+        transform: rotate(5deg)
+    }
+    80% {
+        transform: rotate(-5deg)
+    }
+    to {
+        transform: rotate(0deg)
+    }
+}
+.ufo-swing {
+    transform-origin: top center;
+    animation-name: swing
+}
+@keyframes tada {
+    0% {
+        transform: scaleX(1)
+    }
+    10%, 20% {
+        transform: scale3d(.9, .9, .9) rotate(-3deg)
+    }
+    30%, 50%, 70%, 90% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate(3deg)
+    }
+    40%, 60%, 80% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg)
+    }
+    to {
+        transform: scaleX(1)
+    }
+}
+.ufo-tada {
+    animation-name: tada
+}
+@keyframes wobble {
+    0% {
+        transform: none
+    }
+    15% {
+        transform: translate3d(-25%, 0, 0) rotate(-5deg)
+    }
+    30% {
+        transform: translate3d(20%, 0, 0) rotate(3deg)
+    }
+    45% {
+        transform: translate3d(-15%, 0, 0) rotate(-3deg)
+    }
+    60% {
+        transform: translate3d(10%, 0, 0) rotate(2deg)
+    }
+    75% {
+        transform: translate3d(-5%, 0, 0) rotate(-1deg)
+    }
+    to {
+        transform: none
+    }
+}
+.ufo-wobble {
+    animation-name: wobble
+}
+@keyframes jello {
+    0%, 11.1%, to {
+        transform: none
+    }
+    22.2% {
+        transform: skewX(-12.5deg) skewY(-12.5deg)
+    }
+    33.3% {
+        transform: skewX(6.25deg) skewY(6.25deg)
+    }
+    44.4% {
+        transform: skewX(-3.125deg) skewY(-3.125deg)
+    }
+    55.5% {
+        transform: skewX(1.5625deg) skewY(1.5625deg)
+    }
+    66.6% {
+        transform: skewX(-.78125deg) skewY(-.78125deg)
+    }
+    77.7% {
+        transform: skewX(.390625deg) skewY(.390625deg)
+    }
+    88.8% {
+        transform: skewX(-.1953125deg) skewY(-.1953125deg)
+    }
+}
+.ufo-jello {
+    animation-name: jello;
+    transform-origin: center
+}
+@keyframes heartBeat {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+    14% {
+        -webkit-transform: scale(1.3);
+        transform: scale(1.3)
+    }
+    28% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+    42% {
+        -webkit-transform: scale(1.3);
+        transform: scale(1.3)
+    }
+    70% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+.ufo-heartBeat {
+    -webkit-animation-duration: 1.3s;
+    -webkit-animation-name: heartBeat;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-duration: 1.3s;
+    animation-name: heartBeat;
+    animation-timing-function: ease-in-out
+}
+@keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, to {
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3)
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1)
+    }
+    40% {
+        transform: scale3d(.9, .9, .9)
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03)
+    }
+    80% {
+        transform: scale3d(.97, .97, .97)
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1)
+    }
+}
+.ufo-bounceIn {
+    animation-name: bounceIn
+}
+@keyframes bounceInDown {
+    0%, 60%, 75%, 90%, to {
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -3000px, 0)
+    }
+    60% {
+        opacity: 1;
+        transform: translate3d(0, 25px, 0)
+    }
+    75% {
+        transform: translate3d(0, -10px, 0)
+    }
+    90% {
+        transform: translate3d(0, 5px, 0)
+    }
+    to {
+        transform: none
+    }
+}
+.ufo-bounceInDown {
+    animation-name: bounceInDown
+}
+@keyframes bounceInLeft {
+    0%, 60%, 75%, 90%, to {
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+    0% {
+        opacity: 0;
+        transform: translate3d(-3000px, 0, 0)
+    }
+    60% {
+        opacity: 1;
+        transform: translate3d(25px, 0, 0)
+    }
+    75% {
+        transform: translate3d(-10px, 0, 0)
+    }
+    90% {
+        transform: translate3d(5px, 0, 0)
+    }
+    to {
+        transform: none
+    }
+}
+.ufo-bounceInLeft {
+    animation-name: bounceInLeft
+}
+@keyframes bounceInRight {
+    0%, 60%, 75%, 90%, to {
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+    0% {
+        opacity: 0;
+        transform: translate3d(3000px, 0, 0)
+    }
+    60% {
+        opacity: 1;
+        transform: translate3d(-25px, 0, 0)
+    }
+    75% {
+        transform: translate3d(10px, 0, 0)
+    }
+    90% {
+        transform: translate3d(-5px, 0, 0)
+    }
+    to {
+        transform: none
+    }
+}
+.ufo-bounceInRight {
+    animation-name: bounceInRight
+}
+@keyframes bounceInUp {
+    0%, 60%, 75%, 90%, to {
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 3000px, 0)
+    }
+    60% {
+        opacity: 1;
+        transform: translate3d(0, -20px, 0)
+    }
+    75% {
+        transform: translate3d(0, 10px, 0)
+    }
+    90% {
+        transform: translate3d(0, -5px, 0)
+    }
+    to {
+        transform: translateZ(0)
+    }
+}
+.ufo-bounceInUp {
+    animation-name: bounceInUp
+}
+@keyframes bounceOut {
+    20% {
+        transform: scale3d(.9, .9, .9)
+    }
+    50%, 55% {
+        opacity: 1;
+        transform: scale3d(1.1, 1.1, 1.1)
+    }
+    to {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3)
+    }
+}
+.ufo-bounceOut {
+    animation-name: bounceOut
+}
+@keyframes bounceOutDown {
+    20% {
+        transform: translate3d(0, 10px, 0)
+    }
+    40%, 45% {
+        opacity: 1;
+        transform: translate3d(0, -20px, 0)
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, 2000px, 0)
+    }
+}
+.ufo-bounceOutDown {
+    animation-name: bounceOutDown
+}
+@keyframes bounceOutLeft {
+    20% {
+        opacity: 1;
+        transform: translate3d(20px, 0, 0)
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(-2000px, 0, 0)
+    }
+}
+.ufo-bounceOutLeft {
+    animation-name: bounceOutLeft
+}
+@keyframes bounceOutRight {
+    20% {
+        opacity: 1;
+        transform: translate3d(-20px, 0, 0)
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(2000px, 0, 0)
+    }
+}
+.ufo-bounceOutRight {
+    animation-name: bounceOutRight
+}
+@keyframes bounceOutUp {
+    20% {
+        transform: translate3d(0, -10px, 0)
+    }
+    40%, 45% {
+        opacity: 1;
+        transform: translate3d(0, 20px, 0)
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, -2000px, 0)
+    }
+}
+.ufo-bounceOutUp {
+    animation-name: bounceOutUp
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+.ufo-fadeIn {
+    animation-name: fadeIn
+}
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInDown {
+    animation-name: fadeInDown
+}
+@keyframes fadeInDownBig {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -2000px, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInDownBig {
+    animation-name: fadeInDownBig
+}
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInLeft {
+    animation-name: fadeInLeft
+}
+@keyframes fadeInLeftBig {
+    0% {
+        opacity: 0;
+        transform: translate3d(-2000px, 0, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInLeftBig {
+    animation-name: fadeInLeftBig
+}
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInRight {
+    animation-name: fadeInRight
+}
+@keyframes fadeInRightBig {
+    0% {
+        opacity: 0;
+        transform: translate3d(2000px, 0, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInRightBig {
+    animation-name: fadeInRightBig
+}
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInUp {
+    animation-name: fadeInUp
+}
+@keyframes fadeInUpBig {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 2000px, 0)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-fadeInUpBig {
+    animation-name: fadeInUpBig
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+.ufo-fadeOut {
+    animation-name: fadeOut
+}
+@keyframes fadeOutDown {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0)
+    }
+}
+.ufo-fadeOutDown {
+    animation-name: fadeOutDown
+}
+@keyframes fadeOutDownBig {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, 2000px, 0)
+    }
+}
+.ufo-fadeOutDownBig {
+    animation-name: fadeOutDownBig
+}
+@keyframes fadeOutLeft {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0)
+    }
+}
+.ufo-fadeOutLeft {
+    animation-name: fadeOutLeft
+}
+@keyframes fadeOutLeftBig {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(-2000px, 0, 0)
+    }
+}
+.ufo-fadeOutLeftBig {
+    animation-name: fadeOutLeftBig
+}
+@keyframes fadeOutRight {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0)
+    }
+}
+.ufo-fadeOutRight {
+    animation-name: fadeOutRight
+}
+@keyframes fadeOutRightBig {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(2000px, 0, 0)
+    }
+}
+.ufo-fadeOutRightBig {
+    animation-name: fadeOutRightBig
+}
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0)
+    }
+}
+.ufo-fadeOutUp {
+    animation-name: fadeOutUp
+}
+@keyframes fadeOutUpBig {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, -2000px, 0)
+    }
+}
+.ufo-fadeOutUpBig {
+    animation-name: fadeOutUpBig
+}
+@keyframes flip {
+    0% {
+        transform: perspective(400px) rotateY(-1turn);
+        animation-timing-function: ease-out
+    }
+    40% {
+        transform: perspective(400px) translateZ(150px) rotateY(-190deg);
+        animation-timing-function: ease-out
+    }
+    50% {
+        transform: perspective(400px) translateZ(150px) rotateY(-170deg);
+        animation-timing-function: ease-in
+    }
+    80% {
+        transform: perspective(400px) scale3d(.95, .95, .95);
+        animation-timing-function: ease-in
+    }
+    to {
+        transform: perspective(400px);
+        animation-timing-function: ease-in
+    }
+}
+.ufo-ufo-animated.flip {
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    animation-name: flip
+}
+@keyframes flipInX {
+    0% {
+        transform: perspective(400px) rotateX(90deg);
+        animation-timing-function: ease-in;
+        opacity: 0
+    }
+    40% {
+        transform: perspective(400px) rotateX(-20deg);
+        animation-timing-function: ease-in
+    }
+    60% {
+        transform: perspective(400px) rotateX(10deg);
+        opacity: 1
+    }
+    80% {
+        transform: perspective(400px) rotateX(-5deg)
+    }
+    to {
+        transform: perspective(400px)
+    }
+}
+.ufo-flipInX {
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    animation-name: flipInX
+}
+@keyframes flipInY {
+    0% {
+        transform: perspective(400px) rotateY(90deg);
+        animation-timing-function: ease-in;
+        opacity: 0
+    }
+    40% {
+        transform: perspective(400px) rotateY(-20deg);
+        animation-timing-function: ease-in
+    }
+    60% {
+        transform: perspective(400px) rotateY(10deg);
+        opacity: 1
+    }
+    80% {
+        transform: perspective(400px) rotateY(-5deg)
+    }
+    to {
+        transform: perspective(400px)
+    }
+}
+.ufo-flipInY {
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    animation-name: flipInY
+}
+@keyframes flipOutX {
+    0% {
+        transform: perspective(400px)
+    }
+    30% {
+        transform: perspective(400px) rotateX(-20deg);
+        opacity: 1
+    }
+    to {
+        transform: perspective(400px) rotateX(90deg);
+        opacity: 0
+    }
+}
+.ufo-flipOutX {
+    animation-name: flipOutX;
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important
+}
+@keyframes flipOutY {
+    0% {
+        transform: perspective(400px)
+    }
+    30% {
+        transform: perspective(400px) rotateY(-15deg);
+        opacity: 1
+    }
+    to {
+        transform: perspective(400px) rotateY(90deg);
+        opacity: 0
+    }
+}
+.ufo-flipOutY {
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    animation-name: flipOutY
+}
+@keyframes lightSpeedIn {
+    0% {
+        transform: translate3d(100%, 0, 0) skewX(-30deg);
+        opacity: 0
+    }
+    60% {
+        transform: skewX(20deg);
+        opacity: 1
+    }
+    80% {
+        transform: skewX(-5deg);
+        opacity: 1
+    }
+    to {
+        transform: none;
+        opacity: 1
+    }
+}
+.ufo-lightSpeedIn {
+    animation-name: lightSpeedIn;
+    animation-timing-function: ease-out
+}
+@keyframes lightSpeedOut {
+    0% {
+        opacity: 1
+    }
+    to {
+        transform: translate3d(100%, 0, 0) skewX(30deg);
+        opacity: 0
+    }
+}
+.ufo-lightSpeedOut {
+    animation-name: lightSpeedOut;
+    animation-timing-function: ease-in
+}
+@keyframes rotateIn {
+    0% {
+        transform-origin: center;
+        transform: rotate(-200deg);
+        opacity: 0
+    }
+    to {
+        transform-origin: center;
+        transform: none;
+        opacity: 1
+    }
+}
+.ufo-ufo-rotateIn {
+    animation-name: rotateIn
+}
+@keyframes rotateInDownLeft {
+    0% {
+        transform-origin: left bottom;
+        transform: rotate(-45deg);
+        opacity: 0
+    }
+    to {
+        transform-origin: left bottom;
+        transform: none;
+        opacity: 1
+    }
+}
+.ufo-rotateInDownLeft {
+    animation-name: rotateInDownLeft
+}
+@keyframes rotateInDownRight {
+    0% {
+        transform-origin: right bottom;
+        transform: rotate(45deg);
+        opacity: 0
+    }
+    to {
+        transform-origin: right bottom;
+        transform: none;
+        opacity: 1
+    }
+}
+.ufo-rotateInDownRight {
+    animation-name: rotateInDownRight
+}
+@keyframes rotateInUpLeft {
+    0% {
+        transform-origin: left bottom;
+        transform: rotate(45deg);
+        opacity: 0
+    }
+    to {
+        transform-origin: left bottom;
+        transform: none;
+        opacity: 1
+    }
+}
+.ufo-rotateInUpLeft {
+    animation-name: rotateInUpLeft
+}
+@keyframes rotateInUpRight {
+    0% {
+        transform-origin: right bottom;
+        transform: rotate(-90deg);
+        opacity: 0
+    }
+    to {
+        transform-origin: right bottom;
+        transform: none;
+        opacity: 1
+    }
+}
+.ufo-rotateInUpRight {
+    animation-name: rotateInUpRight
+}
+@keyframes rotateOut {
+    0% {
+        transform-origin: center;
+        opacity: 1
+    }
+    to {
+        transform-origin: center;
+        transform: rotate(200deg);
+        opacity: 0
+    }
+}
+.ufo-rotateOut {
+    animation-name: rotateOut
+}
+@keyframes rotateOutDownLeft {
+    0% {
+        transform-origin: left bottom;
+        opacity: 1
+    }
+    to {
+        transform-origin: left bottom;
+        transform: rotate(45deg);
+        opacity: 0
+    }
+}
+.ufo-rotateOutDownLeft {
+    animation-name: rotateOutDownLeft
+}
+@keyframes rotateOutDownRight {
+    0% {
+        transform-origin: right bottom;
+        opacity: 1
+    }
+    to {
+        transform-origin: right bottom;
+        transform: rotate(-45deg);
+        opacity: 0
+    }
+}
+.ufo-rotateOutDownRight {
+    animation-name: rotateOutDownRight
+}
+@keyframes rotateOutUpLeft {
+    0% {
+        transform-origin: left bottom;
+        opacity: 1
+    }
+    to {
+        transform-origin: left bottom;
+        transform: rotate(-45deg);
+        opacity: 0
+    }
+}
+.ufo-rotateOutUpLeft {
+    animation-name: rotateOutUpLeft
+}
+@keyframes rotateOutUpRight {
+    0% {
+        transform-origin: right bottom;
+        opacity: 1
+    }
+    to {
+        transform-origin: right bottom;
+        transform: rotate(90deg);
+        opacity: 0
+    }
+}
+.ufo-rotateOutUpRight {
+    animation-name: rotateOutUpRight
+}
+@keyframes hinge {
+    0% {
+        transform-origin: top left;
+        animation-timing-function: ease-in-out
+    }
+    20%, 60% {
+        transform: rotate(80deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out
+    }
+    40%, 80% {
+        transform: rotate(60deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+        opacity: 1
+    }
+    to {
+        transform: translate3d(0, 700px, 0);
+        opacity: 0
+    }
+}
+.ufo-hinge {
+    animation-name: hinge
+}
+@keyframes jackInTheBox {
+    0% {
+        opacity: 0;
+        transform: scale(.1) rotate(30deg);
+        transform-origin: center bottom
+    }
+    50% {
+        transform: rotate(-10deg)
+    }
+    70% {
+        transform: rotate(3deg)
+    }
+    to {
+        opacity: 1;
+        transform: scale(1)
+    }
+}
+.ufo-jackInTheBox {
+    animation-name: jackInTheBox
+}
+@keyframes rollIn {
+    0% {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0) rotate(-120deg)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+.ufo-rollIn {
+    animation-name: rollIn
+}
+@keyframes rollOut {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0) rotate(120deg)
+    }
+}
+.ufo-rollOut {
+    animation-name: rollOut
+}
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3)
+    }
+    50% {
+        opacity: 1
+    }
+}
+.ufo-zoomIn {
+    animation-name: zoomIn
+}
+@keyframes zoomInDown {
+    0% {
+        opacity: 0;
+        transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+        animation-timing-function: cubic-bezier(.55, .055, .675, .19)
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        animation-timing-function: cubic-bezier(.175, .885, .32, 1)
+    }
+}
+.ufo-zoomInDown {
+    animation-name: zoomInDown
+}
+@keyframes zoomInLeft {
+    0% {
+        opacity: 0;
+        transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);
+        animation-timing-function: cubic-bezier(.55, .055, .675, .19)
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);
+        animation-timing-function: cubic-bezier(.175, .885, .32, 1)
+    }
+}
+.ufo-zoomInLeft {
+    animation-name: zoomInLeft
+}
+@keyframes zoomInRight {
+    0% {
+        opacity: 0;
+        transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);
+        animation-timing-function: cubic-bezier(.55, .055, .675, .19)
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);
+        animation-timing-function: cubic-bezier(.175, .885, .32, 1)
+    }
+}
+.ufo-zoomInRight {
+    animation-name: zoomInRight
+}
+@keyframes zoomInUp {
+    0% {
+        opacity: 0;
+        transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+        animation-timing-function: cubic-bezier(.55, .055, .675, .19)
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+        animation-timing-function: cubic-bezier(.175, .885, .32, 1)
+    }
+}
+.ufo-zoomInUp {
+    animation-name: zoomInUp
+}
+@keyframes zoomOut {
+    0% {
+        opacity: 1
+    }
+    50% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3)
+    }
+    to {
+        opacity: 0
+    }
+}
+.ufo-zoomOut {
+    animation-name: zoomOut
+}
+@keyframes zoomOutDown {
+    40% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+        animation-timing-function: cubic-bezier(.55, .055, .675, .19)
+    }
+    to {
+        opacity: 0;
+        transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);
+        transform-origin: center bottom;
+        animation-timing-function: cubic-bezier(.175, .885, .32, 1)
+    }
+}
+.ufo-zoomOutDown {
+    animation-name: zoomOutDown
+}
+@keyframes zoomOutLeft {
+    40% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0)
+    }
+    to {
+        opacity: 0;
+        transform: scale(.1) translate3d(-2000px, 0, 0);
+        transform-origin: left center
+    }
+}
+.ufo-zoomOutLeft {
+    animation-name: zoomOutLeft
+}
+@keyframes zoomOutRight {
+    40% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0)
+    }
+    to {
+        opacity: 0;
+        transform: scale(.1) translate3d(2000px, 0, 0);
+        transform-origin: right center
+    }
+}
+.ufo-zoomOutRight {
+    animation-name: zoomOutRight
+}
+@keyframes zoomOutUp {
+    40% {
+        opacity: 1;
+        transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        animation-timing-function: cubic-bezier(.55, .055, .675, .19)
+    }
+    to {
+        opacity: 0;
+        transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);
+        transform-origin: center bottom;
+        animation-timing-function: cubic-bezier(.175, .885, .32, 1)
+    }
+}
+.ufo-zoomOutUp {
+    animation-name: zoomOutUp
+}
+@keyframes slideInDown {
+    0% {
+        transform: translate3d(0, -100%, 0);
+        visibility: visible
+    }
+    to {
+        transform: translateZ(0)
+    }
+}
+.ufo-slideInDown {
+    animation-name: slideInDown
+}
+@keyframes slideInLeft {
+    0% {
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible
+    }
+    to {
+        transform: translateZ(0)
+    }
+}
+.ufo-slideInLeft {
+    animation-name: slideInLeft
+}
+@keyframes slideInRight {
+    0% {
+        transform: translate3d(100%, 0, 0);
+        visibility: visible
+    }
+    to {
+        transform: translateZ(0)
+    }
+}
+.ufo-slideInRight {
+    animation-name: slideInRight
+}
+@keyframes slideInUp {
+    0% {
+        transform: translate3d(0, 100%, 0);
+        visibility: visible
+    }
+    to {
+        transform: translateZ(0)
+    }
+}
+.ufo-slideInUp {
+    animation-name: slideInUp
+}
+@keyframes slideOutDown {
+    0% {
+        transform: translateZ(0)
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(0, 100%, 0)
+    }
+}
+.ufo-slideOutDown {
+    animation-name: slideOutDown
+}
+@keyframes slideOutLeft {
+    0% {
+        transform: translateZ(0)
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(-100%, 0, 0)
+    }
+}
+.ufo-slideOutLeft {
+    animation-name: slideOutLeft
+}
+@keyframes slideOutRight {
+    0% {
+        transform: translateZ(0)
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(100%, 0, 0)
+    }
+}
+.ufo-slideOutRight {
+    animation-name: slideOutRight
+}
+@keyframes slideOutUp {
+    0% {
+        transform: translateZ(0)
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(0, -100%, 0)
+    }
+}
+.ufo-slideOutUp {
+    animation-name: slideOutUp
+}
+
+ul.thumbnails.image_picker_selector {
+    overflow: auto;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+ul.thumbnails.image_picker_selector ul {
+    overflow: auto;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+ul.thumbnails.image_picker_selector li.group_title {
+    float: none;
+}
+ul.thumbnails.image_picker_selector li {
+    margin: 0 12px 12px 0;
+    float: left;
+    cursor: pointer;
+}
+html[dir="rtl"] ul.thumbnails.image_picker_selector li {
+    float: right;
+}
+ul.thumbnails.image_picker_selector li .thumbnail {
+    padding: 3px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+ul.thumbnails.image_picker_selector li .thumbnail img {
+    -webkit-user-drag: none;
+    height: 100%;
+    width: 100%;
+}
+ul.thumbnails.image_picker_selector li .thumbnail.selected {
+    background: #08C;
+}
+.image_picker_image {
+    width: 150px;
+    border-radius: 3px;
+}
+ul.thumbnails.image_picker_selector li {
+    width: 18%;
+}
+ul.thumbnails.image_picker_selector li .thumbnail {
+    width: 100%;
+    height: 139px;
+}
+.thumbnails.image_picker_selector li .thumbnail p {
+    display: none;
+}
+.thumbnail.ufo-no-img {
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.thumbnail.selected i {
+    color: white;
+}
+
+.float-button {
+    width: 50px;
+    height: 50px;
+    background: #0a53be;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.ufo-context-menu {
+    width: 150px;
+    max-width: 150px;
+    min-height: 50px;
+    max-height: 200px;
+    background: var(--ctx-menu-bg);
+    position: absolute;
+    padding: 6px 8px;
+    border-radius: 4px;
+    display: none;
+    z-index: 9999999999;
+    box-shadow: var(--ctx-menu-bx-shdow);
+}
+.ufo-context-menu ul {
+    margin: 0;
+    padding: 0;
+}
+.ufo-context-menu ul li {
+    width: 100%;
+    height: 35px;
+    margin: 0 !important;
+    padding: 0 8px;
+    font-size: 14.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.ufo-context-menu ul li:hover {
+    background-color: var(--ctx-menu-bg-hv);
+    color: var(--ctx-menu-hv-cl);
+    border-radius: 6px;
+    transition: background-color .2s linear;
+}
+
+.ufo-prevent-resize {
+    resize: none;
+}
+.ufo-resize-v {
+    resize: vertical;
+}
+.ufo-resize-h {
+    resize: horizontal;
+}
+
+.text-center {
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center
+}
+.text-left {
+    text-align: left;
+    text-align: -webkit-left;
+    text-align: -moz-left
+}
+.text-right {
+    text-align: right;
+    text-align: -webkit-right;
+    text-align: -moz-right
+}
+
+.text-decoration-none {
+    text-decoration: none
+}
+
+.mute-text {
+    color: #a0a0a0;
+}
+
+ufo-star-rating {
+    display: block;
+    padding: 5px;
+}
+ufo-star-rating star:before {
+    font-family: ufo-icon, sans-serif;
+    content: '\e900';
+    display: inline-block;
+    margin: 0 2px;
+    font-size: 25px;
+    color: orange;
+    cursor: pointer;
+}
+ufo-star-rating star.active:before {
+    content: '\e9eb';
+    color: orange;
+}
+
+.bg-danger {
+    background: #d9534f
+}
+.bg-warning {
+    background: #f0ad4e
+}
+.bg-info {
+    background: #5bc0de
+}
+.bg-primary {
+    background: #007BFFFF
+}
+.bg-success {
+    background: #2b542c
+}
+.bg-light {
+    background: #fff
+}
+.bg-smoke {
+    background: whitesmoke
+}
+.bg-silver {
+    background: #C0C0C0
+}
+.bg-dark {
+    background: #000
+}
+
+.ufo-card-bg-1 {
+    background: rgb(228, 230, 245);
+}
+.ufo-card-bg-2 {
+    background: rgb(246, 228, 244);
+}
+.ufo-card-bg-3 {
+    background: rgb(249, 229, 228);
+}
+.ufo-card-bg-4 {
+    background: rgb(239 176 232);
+}
+.ufo-card-bg-5 {
+    background: rgb(176 219 239);
+}
+.ufo-card-bg-6 {
+    background: rgb(220 245 157 / 70%);
+}
+.ufo-card-bg-7 {
+    background: rgb(157 245 217 / 70%);
+}
+.ufo-card-bg-8 {
+    background: rgb(233 92 92 / 24%);
+}
+.ufo-card-bg-9 {
+    background: rgb(247 164 41 / 37%);
+}
+.ufo-card-bg-10 {
+    background: rgb(84 77 77 / 30%);
+}
+
+.ufo-switch {
+    display: inline-block;
+}
+.ufo-switch input {
+    display: none;
+}
+.ufo-switch label {
+    display: block;
+    width: 55px;
+    height: 25px;
+    padding: 1.5px;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.ufo-switch label::after {
+    content: "";
+    display: inherit;
+    width: 18px;
+    height: 18px;
+    border-radius: 12px;
+    background: #ccc;
+    transition: 0.3s;
+}
+.ufo-switch input:checked ~ label {
+    border-color: #0d6efd;
+}
+.ufo-switch input:checked ~ label::after {
+    translate: 28px 0;
+    background: #0d6efd;
+}
+html[dir="rtl"] .ufo-switch input:checked ~ label::after {
+    translate: -28px 0;
+}
+.ufo-switch input:disabled ~ label {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ufo-default-404 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.ufo-default-404 div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+}
+.ufo-default-404 div:nth-child(2) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 70px 0 0;
+}
+.ufo-default-404 div:nth-child(2) h3 {
+    font-size: 28px;
+}
+.ufo-default-404 h2 {
+    font-size: 150px;
+}
+.ufo-default-404 img {
+    height: 300px;
+    width: 280px;
+    margin: 0 20px;
+    transform: rotate(10deg);
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.modern-paging {
+    width: 100%;
+    display: flex;
+    margin: 20px -10px 0 0;
+    justify-content: center;
+}
+html[dir="rtl"] .modern-paging {
+    flex-direction: row-reverse;
+}
+.modern-paging span.of_page {
+    text-align: center;
+    margin: 4px 20px 0 10px;
+    font-size: 14px;
+}
+.modern-paging span.modern-paging-item {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
+    background: var(--paging-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--paging-cl) !important;
+    font-size: 22px;
+    outline: 0;
+    border-color: #0a8cce;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.modern-paging span.modern-paging-item:hover {
+    border: 2px #0a8cce solid;
+    box-shadow:0 0 0 .2rem rgba(0,123,255,.25);
+}
+.modern-paging span.modern-paging-item i {
+    font-size: 13px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.ellipsis-text {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ufo-accordion-2 {
+    width: 100%;
+    margin: 2em auto 2em;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.ufo-accordion-2 .ufo-accordion-item {
+    background: #FFF;
+    width: 100%;
+    border-radius: 8px;
+}
+body[data-theme="dark"] .ufo-accordion-2 .ufo-accordion-item {
+    background: #3E3D3D;
+}
+.ufo-accordion-2 .ufo-accordion-item .ufo-accordion-top {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #37474F;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    display: block;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.ufo-accordion-2 .ufo-accordion-item .ufo-accordion-title {
+    padding: 1.2em 1em;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    background-color: transparent;
+    color: #000;
+}
+.ufo-accordion-2 .ufo-accordion-item:last-child .ufo-accordion-top {
+    border-bottom: 0;
+}
+.ufo-accordion-2 .ufo-accordion-item .ufo-accordion-icon {
+    position: absolute;
+    top: 1.3em;
+    left: 1rem;
+    font-size: 15px;
+    color: #595959;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+html[dir="ltr"] .ufo-accordion-2 .ufo-accordion-item .ufo-accordion-icon {
+    right: 1em;
+    left: unset;
+}
+.ufo-accordion-2 .ufo-accordion-item.open .ufo-accordion-top {
+    color: #ff5252;
+}
+.ufo-accordion-2 .ufo-accordion-item.open .ufo-accordion-icon {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+body[data-theme="dark"] .ufo-accordion-2 .ufo-accordion-item .ufo-accordion-title,
+body[data-theme="dark"] .ufo-accordion-2 .ufo-accordion-item .ufo-accordion-icon {
+    color: white;
+}
+.ufo-accordion-2 .ufo-accordion-content {
+    display: none;
+    background: whitesmoke;
+    font-size: 0.95em;
+    padding: 1em;
+    border-radius: 0 0 12px 12px;
+}
+body[data-theme="dark"] .ufo-accordion-2 .ufo-accordion-content {
+    background: #4b4b4b;
+}
+
+.stats-fm {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 20px 20px;
+}
+.stats-fm .stats-fm-row {
+    padding: 0 3px 6px 3px;
+}
+.stats-fm .stats-fm-row .stats-fm-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background: var(--fm-primary-bg);
+    height: 55px;
+    width: 100%;
+    border-radius: 6px;
+    padding: 0 10px;
+    box-shadow: var(--fm-stats-shadow);
+}
+.stats-fm .stats-fm-row .icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #dddddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-size: 18px;
+    margin: 0 10px 0 0;
+}
+html[dir="rtl"] .stats-fm .stats-fm-row .icon {
+    margin: 0 0 0 10px;
+}
+.file-manager {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.file-manager .file-card-container {
+    width: calc(15% - -19px);
+    padding: 8px;
+}
+.file-card, .file-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+.file-card img {
+    border-radius: 8px;
+}
+.file-card {
+    background: var(--fm-primary-bg);
+    padding: 5px;
+    height: 155px;
+    cursor: pointer;
+}
+.file-card span {
+    display: none;
+}
+.file-card.selected {
+    padding: 3px;
+    cursor: pointer;
+    box-shadow: 0 0 0 0.25rem rgb(11, 94, 215);
+    transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+}
+.file-card.error {
+    padding: 3px;
+    box-shadow: 0 0 0 0.35rem rgb(215 11 11);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.file-card.error span.error {
+    position: absolute;
+    margin: 55px 0 0 8px;
+    display: block;
+    text-align: center;
+    width: 130px;
+    background: red;
+    border-radius: 10px;
+    font-size: 14px;
+}
+html[dir="rtl"] .file-card.error span.error {
+    margin: 55px 8px 0 0;
+}
+.fm-icon-file {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.fm-icon-file i {
+    font-size: 65px;
+    margin: 7px 0 20px 0 !important;
+}
+.fm-icon-file span {
+    text-align: center;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 8px;
+    font-size: 15px;
+}
+.fm-toolbar-wrp {
+    padding: 0 20px;
+}
+.fm-toolbar-wrp .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background: var(--fm-primary-bg);
+    height: 50px;
+    border-radius: 6px;
+    color: var(--fm-primary-cl);
+}
+
+.fm-toolbar {
+    overflow: hidden;
+    flex-flow: row;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.fm-toolbar ul {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.fm-toolbar ul li {
+    width: 150px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 3px solid #d9d0d0;
+    padding: 0 0 0 6px;
+}
+html[dir="rtl"] .fm-toolbar ul li {
+    border-right: none !important;
+    border-left: 3px solid rgba(186, 186, 186, 0.7);
+    padding: 0 6px 0 0;
+}
+.fm-toolbar ul li:last-child {
+    border-right: none !important;
+    border-left: none !important;
+}
+.fm-toolbar ul li i {
+    margin: 0 5px;
+    position: relative;
+    top: -1px;
+    font-size: 18px;
+}
+.fm-toolbar ul li:hover {
+    background: var(--fm-primary-hv-bg);
+    cursor: pointer;
+    transition: background-color .3s linear;
+    border-radius: 0;
+}
+.fm-toolbar ul li:first-child:hover {
+    border-radius: 6px 0 0 6px;
+}
+html[dir="rtl"] .fm-toolbar ul li:first-child:hover {
+    border-radius: 0 6px 6px 0;
+}
+.fm-toolbar-wrp button {
+    margin: 0 10px 0 0;
+    width: 40px !important;
+    max-width: 40px !important;
+    font-size: 18px;
+}
+.fm-row-folders {
+    width: 98%;
+    height: auto;
+    max-height: 100px;
+    margin: 20px 0 0 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-flow:row;
+    overflow: hidden;
+    padding: 8px 20px;
+}
+.fm-toolbar-two {
+    overflow: hidden;
+    flex-flow: row;
+}
+.fm-folder-container {
+    min-width:24.3%;
+    height: 50px;
+    background: var(--fm-folder-bg);
+    margin: 0 10px 0 0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 16px;
+    cursor: pointer;
+}
+.fm-folder-container.selected {
+    cursor: pointer;
+    box-shadow: 0 0 0 0.25rem rgb(11, 94, 215);
+    transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+}
+.fm-folder-container i {
+    font-size: 30px;
+    margin: 0 10px 0 0;
+    color: var(--fm-folder-icon-cl);
+}
+.fm-folder-container span {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+html[dir="rtl"] .fm-folder-container {
+    margin: 0 0 0 10px;
+}
+html[dir="rtl"] .fm-folder-container i {
+    margin: 0 0 0 10px;
+}
+.fm-demo-img {
+    max-height: 100%;
+    max-width: 100%;
+}
+.file-card span:last-child {
+    max-width: 150px !important;
+}
+.fm-minimize-uploading {
+    position: absolute;
+    bottom: 0;
+    background: #fbfbfb;
+    height: 200px;
+    width: 400px;
+    left: 10px;
+    z-index: 100;
+    border-radius: 8px 8px 0 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    overflow: hidden;
+}
+.fm-minimize-uploading .header {
+    width: 100%;
+    background: #4b4b4b;
+    height: 40px;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 12px;
+}
+.fm-minimize-uploading .header i {
+    margin: 0 10px 0 0;
+    cursor: pointer;
+    color: white;
+}
+html[dir="rtl"] .fm-minimize-uploading .header i {
+    font-size: 22px;
+}
+html[dir="rtl"] .fm-minimize-uploading .header .minimize {
+    font-size: 22px;
+    cursor: pointer;
+}
+.fm-minimize-uploading .ufo-list {
+    height: calc(100% - 40px);
+    overflow: auto;
+    padding: 4px;
+}
+.fm-upload-container {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    border: 2px dashed silver;
+    font-size: 18px;
+    color: silver;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+.fm-upload-container.drag {
+    border: 3px dashed blue;
+}
+.fm-upload-container label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.fm-upload-container.drag label {
+    color: blue;
+}
+.fm-upload-container input {
+    opacity: 0;
+    position: absolute;
+}
+.fm-popup-upload-list .fm-upload-preview-files {
+    width: 500px;
+    height: 200px;
+    padding: 5px;
+    border: 2px silver dashed;
+    overflow: auto;
+}
+.fm-upload-preview-files.drag {
+    border: 3px dashed blue;
+}
+.fm-upload-preview-files.drag .empty {
+    color: blue;
+}
+.fm-upload-preview-files .empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 18px;
+    color: silver;
+}
+.fm-upload-preview-files .empty i {
+    font-size: 80px;
+    margin: 0 0 20px 0;
+    color: green;
+}
+.fm-upload-preview-files .file {
+    width: 100%;
+    height: 70px;
+    background: whitesmoke;
+    border-radius: 4px;
+    display: flex;
+    justify-content: flex-start;
+    direction: ltr;
+    margin: 0 0 10px 0;
+}
+.fm-upload-preview-files .file:last-child {
+    margin: 0;
+}
+.fm-upload-preview-files .file img {
+    width: 80px;
+    border-radius: 4px;
+    height: 100%;
+}
+.fm-upload-preview-files .file .icon {
+    font-size: 45px;
+    width: 80px;
+    padding: 12px;
+}
+.fm-upload-preview-files .file .info {
+    height: 100%;padding: 12px 10px;
+}
+.fm-upload-preview-files .file h4 {
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.fm-upload-preview-files .file .layer {
+    position: absolute;
+    width: 486px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    z-index: 2;
+}
+.fm-upload-preview-files .options {
+    position: relative;
+    left: 28%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+}
+.fm-minimize-uploading .fm-upload-preview-files .options {
+    left: 12%;
+}
+.fm-minimize-uploading .fm-upload-preview-files {
+    overflow: auto !important;
+}
+.circle {
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.circle:hover {
+    border: 2px solid rgb(95 95 225);
+    color: blue;
+    transform: scale(1.2);
+    transition: all .3s ease-in-out;
+}
+body[data-theme="dark"] .fm-upload-preview-files {
+    color: black;
+}
+body[data-theme="dark"] .fm-upload-container.drag * {
+    color: white;
+}
+body[data-theme="dark"] .fm-upload-preview-files.drag .empty {
+    color: white;
+}
+.media-container [data-media] {
+    width: 850px;
+    background: var(--media-popup-bg);
+    position: absolute;
+    height: 500px;
+    top: 0;bottom: 0;left: 0;right: 0;
+    margin: auto;
+    border-radius: 12px;
+    z-index: 999999999;
+}
+.media-container [data-media] .media-header {
+    width: 100%;
+    height: 50px;
+    background: var(--media-popup-header-bg);
+    border-radius: 12px 12px 0 0;
+    padding: 6px;
+}
+.media-container [data-media] .media-header .cls-media {
+    font-size: 16px;
+    margin: 10px 10px 0 0;
+    cursor: pointer;
+    color: white;
+}
+.media-container [data-media] .media-header .refresh-media {
+    font-size: 22px;
+    margin: 6px 20px;
+    cursor: pointer;
+    color: white;
+}
+.media-container [data-media] .media-header {
+    margin: 0 0 10px 0;
+}
+.media-container [data-media] .content {
+    height: calc(100% - 60px - 130px);
+    padding: 10px 0 0 10px;
+}
+html[dir="rtl"] .media-container [data-media] .content {
+    height: calc(100% - 181px);
+    padding: 10px 0 0 10px;
+}
+html[dir="rtl"] .media-container [data-media] .content .empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+    justify-items: center;
+}
+html[dir="rtl"] .media-container [data-media] .content .empty i {
+    font-size: 115px;
+    color: green;
+}
+html[dir="rtl"] .media-container [data-media] .content .empty h3 {
+    margin: 25px 0 0 0;
+    color: #a1a1a1;
+}
+.media-container [data-media] .fm-row-folders {
+    width: 99.5%;
+    margin: 0 0 0 0;
+    padding: 8px;
+}
+.media-container [data-media] .media-file-name {
+    padding: 3px 9px 0;
+    font-size: 13px;
+    position: relative;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    background: aliceblue;
+    border-radius: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.du-dialog .dlg-header {
+    font-size: 16px !important;
+}
+.du-dialog[dark="false"] .dlg-header {
+    color: black;
+}
+
+.ufo-table {
+    width: 100%;
+    border-collapse: separate;
+    table-layout: fixed;
+    border-spacing: 0 5px;
+}
+.ufo-table thead tr th,
+.ufo-table tbody tr td {
+    text-align: left;
+}
+html[dir="rtl"] .ufo-table thead tr th,
+html[dir="rtl"] .ufo-table tbody tr td {
+    text-align: right;
+}
+.ufo-table thead tr th,
+.ufo-table tbody tr td {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: var(--table-row-bg);
+    color: var(--table-row-cl);
+}
+.ufo-table td, .ufo-table th{
+    padding: 10px 12px;
+    font-size: 15px;
+}
+.ufo-table tbody tr {
+    margin: 0 0 10px 0;
+}
+.ufo-table td p {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html[dir="ltr"] .ufo-table thead tr th:first-child,
+html[dir="ltr"] .ufo-table tbody tr td:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+html[dir="ltr"] .ufo-table thead tr th:last-child,
+html[dir="ltr"] .ufo-table tbody tr td:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+html[dir="rtl"] .ufo-table thead tr th:first-child,
+html[dir="rtl"] .ufo-table tbody tr td:first-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+html[dir="rtl"] .ufo-table thead tr th:last-child,
+html[dir="rtl"] .ufo-table tbody tr td:last-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.text-table-responsive {
+    width: 90%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis
+}
+
+.check {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    -webkit-tap-highlight-color: transparent;
+}
+.check.for-table {
+    margin: 3px 10px 0 0;
+}
+html[dir="rtl"] .check.for-table {
+    margin: 3px 0 0 10px;
+}
+.check:before {
+    content: "";
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34,50,84,0.03);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.check svg {
+    position: relative;
+    z-index: 1;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #c8ccd4;
+    stroke-width: 1.5;
+    transition: all 0.2s ease;
+}
+.check svg path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+}
+.check svg polyline {
+    stroke-dasharray: 22;
+    stroke-dashoffset: 66;
+}
+.check:hover:before {
+    opacity: 1;
+}
+.check:hover svg {
+    stroke: #4285f4;
+}
+input[type="checkbox"]:checked + .check svg {
+    stroke: #4285f4;
+}
+input[type="checkbox"]:checked + .check svg path {
+    stroke-dashoffset: 60;
+    transition: all 0.3s linear;
+}
+input[type="checkbox"]:checked + .check svg polyline {
+    stroke-dashoffset: 42;
+    transition: all 0.2s linear;
+    transition-delay: 0.15s;
+}
+
+.ufo-table.has-checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    margin: 3px 10px 0 0;
+}
+html[dir="rtl"] .ufo-table.has-checkbox input[type="checkbox"] {
+    margin: 3px 0 0 10px;
+}
+
+@media screen and (min-width: 200px) and (max-width: 300px) {
+    .media-container [data-media] {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .media-container [data-media] .media-header {
+        border-radius: 0;
+    }
+    ul.thumbnails.image_picker_selector li {
+        width: 95%;
+    }
+    .ufo-table tr {
+        background: var(--table-row-bg);
+        color: var(--table-row-cl);
+        border-radius: 6px;
+        padding: 4px;
+    }
+    .ufo-table thead tr th,.ufo-table tbody tr td {
+        min-height: 40px;
+    }
+}
+@media screen and (min-width: 300px) and (max-width: 640px) {
+    .media-container [data-media] {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .media-container [data-media] .media-header {
+        border-radius: 0;
+    }
+    ul.thumbnails.image_picker_selector li {
+        width: 46%;
+    }
+    .ufo-table tr {
+        background: var(--table-row-bg);
+        color: var(--table-row-cl);
+        border-radius: 6px;
+        padding: 4px;
+    }
+    .check.for-table {
+        position: absolute;
+        right: 5px;
+        z-index: 9;
+    }
+    .ufo-table thead tr th,.ufo-table tbody tr td {
+        min-height: 40px;
+    }.ufo-table thead{
+         display: none;
+     }
+    .ufo-table, .ufo-table tbody, .ufo-table tr, .ufo-table td{
+        display: block;
+        width: 100%;
+    }
+    .ufo-table tr{
+        margin-bottom:15px;
+    }
+    .ufo-table td{
+        text-align: right;
+        padding-left: 35%;
+        position: relative;
+        display: flex;
+    }
+    html[dir="rtl"] .ufo-table td{
+        padding-left: 0;
+        padding-right: 35%;
+        position: relative;
+    }
+    html[dir="ltr"] .ufo-table td::before{
+        content: attr(data-label);
+        position: absolute;
+        left:15px;
+        font-size:15px;
+        font-weight: bold;
+        text-align: left;
+        width: 25%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    html[dir="rtl"] .ufo-table td::after{
+        content: attr(data-label);
+        position: absolute;
+        right:0;
+        padding-right:15px;
+        font-size:15px;
+        font-weight: bold;
+        text-align: right;
+        width: 25%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    html[dir="rtl"] .ufo-table.has-checkbox td::after{
+        left: 15px;
+    }
+    html[dir="rtl"] .ufo-table.has-checkbox td::after{
+        right: 15px;
+    }
+    .ufo-table.has-checkbox tr td input[type="checkbox"] {
+        position: absolute;
+        top: 11px;
+        z-index: 9;
+        margin: 0;
+    }
+    html[dir="ltr"] .ufo-table.has-checkbox tr td input[type="checkbox"] {
+        left: 10px;
+    }
+    html[dir="rtl"] .ufo-table.has-checkbox tr td input[type="checkbox"] {
+        right: 10px;
+    }
+    .check.for-table {
+        position: absolute;
+        right: 5px;
+        z-index: 9;
+    }
+}
+@media screen and (max-width: 700px) {
+    .ufo-default-404 h2 {
+        font-size: 75px;
+    }
+    .ufo-default-404 img {
+        height: 130px;
+        width: 130px;
+    }
+    .ufo-default-404 div:nth-child(2) {
+        margin: 0;
+    }
+    .ufo-default-404 div:nth-child(2) h3 {
+        font-size: 24px;
+    }
+}
+@media screen and (min-width: 640px) and (max-width: 1000px) {
+    .media-container [data-media] {
+        width: 80%;
+    }
+    ul.thumbnails.image_picker_selector li {
+        width: 30.5%;
+    }
+    .ufo-table tbody tr td,
+    .ufo-table thead tr th {
+        display: revert;
+        background: var(--table-row-bg);
+        color: var(--table-row-cl);
+    }
+    html[dir="rtl"] .ufo-table thead tr th:first-child,
+    html[dir="rtl"] .ufo-table tbody tr td:first-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+    html[dir="rtl"] .ufo-table thead tr th:last-child,
+    html[dir="rtl"] .ufo-table tbody tr td:last-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+}
+@media screen and (min-width: 1300px) and (max-width: 1920px) {
+    .ufo-table tbody tr td,
+    .ufo-table thead tr th {
+        display: revert;
+        background: var(--table-row-bg);
+        color: var(--table-row-cl);
+    }
+    html[dir="ltr"] .ufo-table thead tr th:first-child,
+    html[dir="ltr"] .ufo-table tbody tr td:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+    html[dir="ltr"] .ufo-table thead tr th:last-child,
+    html[dir="ltr"] .ufo-table tbody tr td:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+    html[dir="rtl"] .ufo-table thead tr th:first-child,
+    html[dir="rtl"] .ufo-table tbody tr td:first-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+    html[dir="rtl"] .ufo-table thead tr th:last-child,
+    html[dir="rtl"] .ufo-table tbody tr td:last-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+}
+@media screen and (min-width: 1920px) {
+    .ufo-table tbody tr td,
+    .ufo-table thead tr th {
+        display: revert;
+        background: var(--table-row-bg);
+        color: var(--table-row-cl);
+    }
+    html[dir="ltr"] .ufo-table thead tr th:first-child,
+    html[dir="ltr"] .ufo-table tbody tr td:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+    html[dir="ltr"] .ufo-table thead tr th:last-child,
+    html[dir="ltr"] .ufo-table tbody tr td:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+    html[dir="rtl"] .ufo-table thead tr th:first-child,
+    html[dir="rtl"] .ufo-table tbody tr td:first-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+    html[dir="rtl"] .ufo-table thead tr th:last-child,
+    html[dir="rtl"] .ufo-table tbody tr td:last-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+}

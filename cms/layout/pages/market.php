@@ -1,0 +1,1 @@
+<?=$ufo->tag("div", "", ["class"=>"ufo-market-cn"]);?>

@@ -1,0 +1,65 @@
+/**
+ * Copyright (c) 2022-2024 UFOCMS
+ *
+ * This software is licensed under the GPLv3 license.
+ * See the LICENSE file for more information.
+ */
+
+:root {
+    --font: ufocms;
+    --cl: black;
+    --bg-page: white;
+    --bg-menu: blue;
+    --fix-problems-bg: #fff;
+    --layer-loader-bg: whitesmoke;
+    --admin-menu-cl: white;
+    --admin-menu-active-cl: black;
+    --admin-menu-active-bg: white;
+    --admin-menu-badge: red;
+    --admin-menu-hover: rgba(255, 255, 255);
+    --ufo-menu-category-item-bg: whitesmoke;
+    --ufo-menu-category-item-bg-hv: #0000ff9c;
+    --media-popup-bg: white;
+    --media-popup-header-bg: blue;
+    --bg-login: white;
+    --cl-menu: white;
+    --thumb-track: #f1f1f1;
+    --thumb-scroll-thumb: blue;
+    --thumb-scroll-thumb-hover: #0808d1;
+    --bg-loader: blue;
+    --bg-statistics: blue;
+    --cl-statistics: white;
+    --setting-item-bg: #ebebeb;
+    --setting-item-hv-bg: #f7f6f6;
+    --setting-item-cl: black;
+    --setting-item-icon-cl: white;
+    --menu-item-bg: #efeeee;
+    --menu-item-cl: black;
+    --table-row-bg: #f1f1f1;
+    --table-row-cl: black;
+    --paging-bg: #f1f1f1;
+    --paging-cl: black;
+    --fm-primary-bg: #f9f7f7;
+    --fm-primary-hv-bg: #f1f1f1;
+    --fm-primary-cl: black;
+    --fm-stats-shadow: rgb(0 0 0 / 8%) 0px 1px 3px 0px, rgb(0 0 0 / 4%) 0px 1px 2px 0px;
+    --fm-folder-bg: #f9f7f7;
+    --fm-folder-icon-cl: #0037ff;
+    --fm-popup-info-bg: #f8f3f3;
+    --fm-popup-info-hr: #b1b1b1;
+    --popup: #fff;
+    --ctx-menu-bg: white;
+    --ctx-menu-bg-hv: #0000fe;
+    --ctx-menu-cl: white;
+    --ctx-menu-hv-cl: white;
+    --ctx-menu-bx-shdow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    --ufo-plugin-cn-bg: #fff;
+    --widget-primary-bg-color: #f5f5f5;
+    --widget-bg-color: #eeeeee;
+    --widget-box-color: #ffffff;
+    --widget-icon-color: #252525;
+    --widget-header-bg: #cccccc;
+    --widget-text-color: #0c0c0c;
+    --widget-box-shadow: rgb(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    --ufo-update-bg: #eff5f5;
+}

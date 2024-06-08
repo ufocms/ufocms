@@ -1,0 +1,1 @@
+<?php ob_clean(); print_r($ufo->get_kv("ufo_float_page_content"));

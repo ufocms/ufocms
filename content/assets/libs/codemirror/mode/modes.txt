@@ -1,0 +1,1 @@
+all.min.js : [PHP, JS, CLIKE, MARKDOWN, CSS, XML, HTMLMIXED]

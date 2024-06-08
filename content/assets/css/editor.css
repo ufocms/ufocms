@@ -1,0 +1,1122 @@
+/**
+ * Copyright (c) 2022-2024 UFOCMS
+ *
+ * This software is licensed under the GPLv3 license.
+ * See the LICENSE file for more information.
+ */
+
+@import "theme/light.css";
+@import "ui.css";
+@import "../libs/jquery-ui/jquery-ui.min.css";
+@import "../libs/duDialog/duDialog.min.css";
+@import "../libs/codemirror/codemirror.css";
+@import "../libs/codemirror/theme/darcula.css";
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 2px;
+}
+::-webkit-scrollbar-track {
+    background: var(--thumb-track);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--thumb-scroll-thumb);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--thumb-scroll-thumb-hover);
+}
+:root {
+    --bg-side-peditor: whitesmoke;
+    --bg-main-peditor: white;
+    --cl-peditor-border: #d3d1d1;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+    color: #0873bc;
+}
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    font-family: ufocms;
+    outline: none !important;
+    border: 0;
+}
+body, html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+.ufo-p-editor-layout {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: calc(100% - 60px);
+}
+ul, li {
+    list-style: none;
+}
+
+.ufo-header-editor {
+    width: 100%;
+    height: 60px;
+    background: var(--bg-side-peditor);
+    border-bottom: var(--cl-peditor-border) solid 2px;
+}
+.ufo-header-editor .right {
+    -webkit-flex: 20;
+    -ms-flex: 20;
+    flex: 20;
+    border-right: var(--cl-peditor-border) solid 2px;
+    display: flex;
+    align-items: center;
+}
+.ufo-header-editor .right .title {
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+html[dir="rtl"] header .right {
+    border-left: var(--cl-peditor-border) solid 2px;
+}
+header .left {
+    -webkit-flex: 80;
+    -ms-flex: 80;
+    flex: 80;
+}
+.side {
+    -webkit-flex: 20;
+    -ms-flex: 20;
+    flex: 20;
+    height: 100%;
+    overflow: auto;
+    background: var(--bg-side-peditor);
+    border-right: var(--cl-peditor-border) solid 2px;
+    z-index: 9999;
+}
+html[dir="rtl"] .side {
+    border-right: none;
+    border-left: var(--cl-peditor-border) solid 2px;
+}
+.side .content {
+    width: 100%;
+    overflow: auto;
+}
+.main {
+    -webkit-flex: 80;
+    -ms-flex: 80;
+    flex: 80;
+    height: 100%;
+    overflow: auto;
+    background: var(--bg-main-peditor);
+}
+
+.pickr {position: relative;overflow: visible;transform: translateY(0) }.pickr * {box-sizing: border-box;outline: none;border: none;-webkit-appearance: none }.pickr .pcr-button {position: relative;height: 2em;width: 2em;padding: 0.5em;cursor: pointer;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;border-radius: .15em;background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" stroke="%2342445A" stroke-width="5px" stroke-linecap="round"><path d="M45,45L5,5"></path><path d="M45,5L5,45"></path></svg>') no-repeat center;background-size: 0;transition: all 0.3s }.pickr .pcr-button::before {position: absolute;content: '';top: 0;left: 0;width: 100%;height: 100%;background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');background-size: .5em;border-radius: .15em;z-index: -1 }.pickr .pcr-button::before {z-index: initial }.pickr .pcr-button::after {position: absolute;content: '';top: 0;left: 0;height: 100%;width: 100%;transition: background 0.3s;background: var(--pcr-color);border-radius: .15em }.pickr .pcr-button.clear {background-size: 70% }.pickr .pcr-button.clear::before {opacity: 0 }.pickr .pcr-button.clear:focus {box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85), 0 0 0 3px var(--pcr-color) }.pickr .pcr-button.disabled {cursor: not-allowed }.pickr *, .pcr-app * {box-sizing: border-box;outline: none;border: none;-webkit-appearance: none }.pickr .pcr-palette, .pickr .pcr-slider, .pcr-app .pcr-palette, .pcr-app .pcr-slider {transition: box-shadow 0.3s }.pickr .pcr-palette:focus, .pickr .pcr-slider:focus, .pcr-app .pcr-palette:focus, .pcr-app .pcr-slider:focus {box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85), 0 0 0 3px rgba(0, 0, 0, 0.25) }.pcr-app {position: fixed;display: flex;flex-direction: column;z-index: 10000;border-radius: 0.1em;background: #fff;opacity: 0;visibility: hidden;transition: opacity 0.3s, visibility 0s 0.3s;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;box-shadow: 0 0.15em 1.5em 0 rgba(0, 0, 0, 0.1), 0 0 1em 0 rgba(0, 0, 0, 0.03);left: 0;top: 0 }.pcr-app.visible {transition: opacity 0.3s;visibility: visible;opacity: 1 }.pcr-app .pcr-swatches {display: flex;flex-wrap: wrap;margin-top: 0.75em }.pcr-app .pcr-swatches.pcr-last {margin: 0 }@supports (display: grid) {.pcr-app .pcr-swatches {display: grid;align-items: center;grid-template-columns:repeat(auto-fit, 1.75em) }}.pcr-app .pcr-swatches > button {font-size: 1em;position: relative;width: calc(1.75em - 5px);height: calc(1.75em - 5px);border-radius: 0.15em;cursor: pointer;margin: 2.5px;flex-shrink: 0;justify-self: center;transition: all 0.15s;overflow: hidden;background: transparent;z-index: 1 }.pcr-app .pcr-swatches > button::before {position: absolute;content: '';top: 0;left: 0;width: 100%;height: 100%;background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');background-size: 6px;border-radius: .15em;z-index: -1 }.pcr-app .pcr-swatches > button::after {content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: var(--pcr-color);border: 1px solid rgba(0, 0, 0, 0.05);border-radius: 0.15em;box-sizing: border-box }.pcr-app .pcr-swatches > button:hover {filter: brightness(1.05) }.pcr-app .pcr-swatches > button:not(.pcr-active) {box-shadow: none }.pcr-app .pcr-interaction {display: flex;flex-wrap: wrap;align-items: center;margin: 0 -0.2em 0 -0.2em }.pcr-app .pcr-interaction > * {margin: 0 0.2em }.pcr-app .pcr-interaction input {letter-spacing: 0.07em;font-size: 0.75em;text-align: center;cursor: pointer;color: #75797e;background: #f1f3f4;border-radius: .15em;transition: all 0.15s;padding: 0.45em 0.5em;margin-top: 0.75em }.pcr-app .pcr-interaction input:hover {filter: brightness(0.975) }.pcr-app .pcr-interaction input:focus {box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85), 0 0 0 3px rgba(66, 133, 244, 0.75) }.pcr-app .pcr-interaction .pcr-result {color: #75797e;text-align: left;flex: 1 1 8em;min-width: 8em;transition: all 0.2s;border-radius: .15em;background: #f1f3f4;cursor: text }.pcr-app .pcr-interaction .pcr-result::-moz-selection {background: #4285f4;color: #fff }.pcr-app .pcr-interaction .pcr-result::selection {background: #4285f4;color: #fff }.pcr-app .pcr-interaction .pcr-type.active {color: #fff;background: #4285f4 }.pcr-app .pcr-interaction .pcr-save, .pcr-app .pcr-interaction .pcr-cancel, .pcr-app .pcr-interaction .pcr-clear {color: #fff;width: auto }.pcr-app .pcr-interaction .pcr-save, .pcr-app .pcr-interaction .pcr-cancel, .pcr-app .pcr-interaction .pcr-clear {color: #fff }.pcr-app .pcr-interaction .pcr-save:hover, .pcr-app .pcr-interaction .pcr-cancel:hover, .pcr-app .pcr-interaction .pcr-clear:hover {filter: brightness(0.925) }.pcr-app .pcr-interaction .pcr-save {background: #4285f4 }.pcr-app .pcr-interaction .pcr-clear, .pcr-app .pcr-interaction .pcr-cancel {background: #f44250 }.pcr-app .pcr-interaction .pcr-clear:focus, .pcr-app .pcr-interaction .pcr-cancel:focus {box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85), 0 0 0 3px rgba(244, 66, 80, 0.75) }.pcr-app .pcr-selection .pcr-picker {position: absolute;height: 18px;width: 18px;border: 2px solid #fff;border-radius: 100%;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none }.pcr-app .pcr-selection .pcr-color-palette, .pcr-app .pcr-selection .pcr-color-chooser, .pcr-app .pcr-selection .pcr-color-opacity {position: relative;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;display: flex;flex-direction: column;cursor: grab;cursor: -webkit-grab }.pcr-app .pcr-selection .pcr-color-palette:active, .pcr-app .pcr-selection .pcr-color-chooser:active, .pcr-app .pcr-selection .pcr-color-opacity:active {cursor: grabbing;cursor: -webkit-grabbing }.pcr-app[data-theme='nano'] {width: 14.25em;max-width: 95vw }.pcr-app[data-theme='nano'] .pcr-swatches {margin-top: .6em;padding: 0 .6em }.pcr-app[data-theme='nano'] .pcr-interaction {padding: 0 .6em .6em .6em }.pcr-app[data-theme='nano'] .pcr-selection {display: grid;grid-gap: .6em;grid-template-columns:1fr 4fr;grid-template-rows:5fr auto auto;align-items: center;height: 10.5em;width: 100%;align-self: flex-start }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview {grid-area: 2 / 1 / 4 / 1;height: 100%;width: 100%;display: flex;flex-direction: row;justify-content: center;margin-left: .6em }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview .pcr-last-color {display: none }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview .pcr-current-color {position: relative;background: var(--pcr-color);width: 2em;height: 2em;border-radius: 50em;overflow: hidden }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview .pcr-current-color::before {position: absolute;content: '';top: 0;left: 0;width: 100%;height: 100%;background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');background-size: .5em;border-radius: .15em;z-index: -1 }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette {grid-area: 1 / 1 / 2 / 3;width: 100%;height: 100%;z-index: 1 }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette .pcr-palette {border-radius: .15em;width: 100%;height: 100% }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette .pcr-palette::before {position: absolute;content: '';top: 0;left: 0;width: 100%;height: 100%;background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');background-size: .5em;border-radius: .15em;z-index: -1 }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser {grid-area: 2 / 2 / 2 / 2 }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity {grid-area: 3 / 2 / 3 / 2 }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser, .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity {height: 0.5em;margin: 0 .6em }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser .pcr-picker, .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity .pcr-picker {top: 50%;transform: translateY(-50%) }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser .pcr-slider, .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity .pcr-slider {flex-grow: 1;border-radius: 50em }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser .pcr-slider {background: linear-gradient(to right, red, #ff0, lime, cyan, blue, #f0f, red) }.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity .pcr-slider {background: linear-gradient(to right, transparent, black), url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');background-size: 100%, 0.25em }
+
+.ufo-content-editor {
+    width: 100%;
+    height: auto;
+    padding: 6px;
+    margin: 0;
+}
+
+.ufo-toolbar-wrp {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 22px;
+}
+.ufo-toolbar-wrp button {
+    cursor: pointer;
+    color: #c6c6c6;
+    margin: 0 10px 0 0;
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+}
+.ufo-toolbar-wrp button.active {
+    color: black;
+}
+html[dir="rtl"] .ufo-toolbar-wrp button {
+    margin: 0 0 0 20px;
+}
+.ufo-toolbar-wrp .ufo-toolbar-column button:last-child {
+    margin: 0;
+}
+.ufo-toolbar-wrp button:hover {
+    color: black;
+    transition: color 200ms linear;
+}
+.ufo-toolbar-column {
+    min-width: 50px;
+    height: 100%;
+    border-right: 2px solid var(--cl-peditor-border);
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+}
+.ufo-toolbar-column:first-child {
+    padding: 0 15px;
+}
+.ufo-toolbar-column:nth-child(2) {
+    padding: 0 15px 0 0;
+}
+html[dir="rtl"] .ufo-toolbar-column:first-child {
+    padding: 0 0 0 15px;
+}
+html[dir="rtl"] .ufo-toolbar-column:nth-child(2) {
+    padding: 0 0 0 15px;
+}
+html[dir="rtl"] .ufo-toolbar-column {
+    border-right: unset;
+    border-left: 2px solid var(--cl-peditor-border);
+}
+.ufo-toolbar-column:last-child {
+    border: unset !important;
+}
+
+select {
+    min-width: 150px;
+}
+.ufo-toolbar-column .pickr {
+    border-radius: 6px;
+    cursor: pointer;
+}
+.ufo-toolbar-column .pickr {
+    margin: 0 0 0 0 !important;
+}
+html[dir="rtl"] .ufo-toolbar-column .pickr {
+    margin: 0 !important;
+}
+.ufo-toolbar-column .pickr button {
+    height: 40px !important;
+    padding: 0 !important;
+    outline: none !important;
+}
+.ufo-toolbar-column .pickr:hover {
+    border-color: var(--pcr-color) !important;
+    box-shadow:0 0 0 .2rem var(--pcr-color) !important;
+    transform: scale(1.1);
+    transition: all 300ms ease-in-out;
+}
+.ufo-toolbar-column .pickr button i {
+    font-family: "Font Awesome 5 Pro";
+    position: relative;
+    z-index: 10;
+}
+
+.side .content .ufo-editor-option-acc {
+    width: 100%;
+}
+.side .side-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+.side .side-tabs li {
+    width: 50%;
+    background: white;
+    display: flex;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 2px solid var(--cl-peditor-border);
+}
+.side .side-tabs li:first-child {
+    border-right: 2px solid var(--cl-peditor-border);
+}
+.side.none {
+    display: none;
+}
+html[dir="rtl"] .side .side-tabs li:first-child {
+    border-right: none;
+    border-left: 2px solid var(--cl-peditor-border);
+}
+.side .side-tabs li.active {
+    border-bottom: 3px solid;
+    border-bottom-color: blue;
+}
+.ufo-side-tab-content {
+    display: none;
+    padding: 5px;
+    width: 100%;
+}
+.ufo-side-tab-content.active {
+    display: block;
+}
+
+.ufo-editor-accordion {
+    width: 100%;
+    background-color: whitesmoke;
+    border: none;
+    outline: none;
+    text-align: right;
+    padding: 18px 10px 15px;
+    font-size: 17px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s linear;
+}
+.ufo-editor-accordion:after {
+    font-family: ufo-icon;
+    content: "\e94c";
+    float: left;
+    height: 100%;
+    margin-top: 3px;
+    font-size: 14px;
+}
+html[dir="rtl"] .ufo-editor-accordion:after {
+    content: "\e94b";
+}
+.ufo-editor-accordion.open:after {
+    content: "\e94a" !important;
+}
+.ufo-editor-accordion-content {
+    width: 100%;
+    padding: 0 5px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-in-out;
+}
+
+.ufo-shortcodes-widgets {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+.ufo-shortcodes-widget {
+    padding: 6px;
+    width: 100%;
+    height: 35px;
+    cursor: grab;
+    margin: 0 0 10px;
+    z-index: 9999;
+}
+.ufo-shortcodes-widget.dragged {
+    cursor: grabbing;
+}
+.ufo-shortcodes-widget i {
+    font-size: 14px;
+    margin: 0 5px 0 0;
+}
+html[dir="rtl"] .ufo-shortcodes-widget i {
+    margin: 0 0 0 5px;
+}
+.ufo-shortcodes-widget.dragged:after {
+    display: none;
+}
+.ufo-shortcodes-widget div {
+    background: white;
+    width: 100%;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.ufo-shortcodes-widget div span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
+    direction: ltr;
+}
+.ufo-shortcodes-widget.dragged div span {
+    width: 100%;
+}
+
+.ufo-widget-column {
+    padding: 8px;
+}
+.ufo-widget {
+    width: 100%;
+    height: 100px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 1px 2px 0;
+    border-radius: 6px;
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    z-index: 9999;
+}
+.ufo-widget.dragged {
+    cursor: grabbing;
+}
+.ufo-widget i,
+.ufo-widget img {
+    font-size: 35px;
+    margin-bottom: 15px;
+    height: 35px;
+    width: 35px;
+}
+.ufo-widget .title {
+    font-size: 15px;
+    width: 95px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ufo-hover.ufo-rich-text {
+    border: 2px dashed #0a8cce;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+.ufo-hover {
+    border: 2px dashed #0a8cce;
+    padding: 0;
+    border-radius: 4px;
+}
+.ufo-widget-options button {
+    border-radius: 0 !important;
+}
+
+.ufo-widget-options button:first-child {
+    border-radius: 6px 0 0 0 !important;
+}
+.ufo-widget-options button:last-child {
+    border-radius: 0 6px 0 0 !important;
+}
+html[dir="rtl"] .ufo-widget-options button:first-child {
+    border-radius: 0 6px 0 0 !important;
+}
+html[dir="rtl"] .ufo-widget-options button:last-child {
+    border-radius: 6px 0 0 0 !important;
+}
+
+.ufo-widget-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-remove-widget {
+    cursor: pointer;
+}
+.ufo-rich-text {
+    padding: 5px 0;
+}
+
+.ufo-element-droppable {
+    width: 100%;
+    height: 150px;
+    display: flex; justify-content: center;
+    margin: 30px 0;
+}
+.ufo-element-droppable .ufo-create-child-container {
+    width: 50%;
+    height: 100%;
+    border: 2px dashed #bfbebe;
+    color: #bfbebe;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 50px;
+}
+.ufo-element-droppable .ufo-create-child-container.drag-over {
+    border: 2px dashed blue;
+    color: blue;
+}
+.ufo-element-droppable .ufo-create-child-container i {
+    margin: 0 10px;
+    cursor: pointer;
+}
+.ufo-element-droppable .ufo-create-child-container strong {
+    font-size: 16px;
+    margin-top: 15px;
+}
+.ufo-elements-container {
+    width: 100%;
+    height: auto;
+    padding: 2px;
+}
+.ufo-sort-mark {
+    height: 10px;
+    background: skyblue;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    margin: 10px 0 15px;
+}
+.ufo-sort-mark:after {
+    font-family: ufo-icon-solid;
+    content: "\ea0c";
+    background: #dfdfdf;
+    height: 25px;
+    width: 60px;
+    position: relative;
+    margin: -8px 0 0;
+    font-size: 20px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-move-widget {
+    cursor: move;
+}
+.ufo-create-child-container i:hover {
+    color: #0a8cce;
+}
+.ufo-column-widget {
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: flex-start;
+    height: auto;
+}
+.ufo-column-widget[data-grid="1"] .ufo-column-child {
+    width: calc(100% / 1);
+}
+.ufo-column-widget[data-grid="2"] .ufo-column-child {
+    width: calc(100% / 2);
+}
+.ufo-column-widget[data-grid="3"] .ufo-column-child {
+    width: calc(100% / 3);
+}
+.ufo-column-child {
+    padding: 6px;
+    min-height: 100px;
+}
+.ufo-column-child:empty:after {
+    font-family: ufo-icon;
+    content: "\e9cc";
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+.ufo-droppable.over {
+    border: 2px dashed #0a8cce;
+}
+
+.ufo-editor-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+.ufo-editor-loader .ufo-loader-box {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: relative;
+}
+.ufo-editor-loader .ufo-loader-box span {
+    width: 70px;
+    height: 70px;
+    border-radius: 40px;
+    border: 10px solid #333;
+    display: inline-block;
+    position: absolute;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+}
+body[data-theme="dark"] .ufo-editor-loader .ufo-loader-box span {
+    border-color: #4b4b4b;
+}
+.ufo-editor-loader .ufo-loader-box span:nth-child(1) {
+    animation-name: loader1;
+    top: 0;
+    left: 0;
+}
+.ufo-editor-loader .ufo-loader-box span:nth-child(2) {
+    animation-name: loader2;
+    top: 0;
+    left: 80px;
+}
+.ufo-editor-loader .ufo-loader-box span:nth-child(3) {
+    animation-name: loader3;
+    top: 80px;
+    left: 0;
+}
+@keyframes loader1 {
+    0% {
+        width: 70px;
+        height: 70px;
+    }
+    12.48% {
+        width: 70px;
+        height: 70px;
+    }
+    16.64% {
+        width: 100%;
+        height: 70px;
+        left: 0;
+        right:auto;
+    }
+    16.70% {
+        left: auto;
+        right:0;
+    }
+    20.8% {
+        width: 70px;
+        height: 70px;
+    }
+    37.44% {
+        width: 70px;
+        height: 70px;
+    }
+    41.6% {
+        width: 70px;
+        height: 100%;
+        top: 0;
+        bottom: auto;
+    }
+    41.8% {
+        top: auto;
+        bottom: 0;
+    }
+    45.76% {
+        width: 70px;
+        height: 70px;
+    }
+    62.4% {
+        width: 70px;
+        height: 70px;
+    }
+    66.56% {
+        width: 100%;
+        height: 70px;
+        left: auto;
+        right:0;
+    }
+    66.60% {
+        left: 0;
+        right:auto;
+    }
+    70.72% {
+        width: 70px;
+        height: 70px;
+    }
+    87.36% {
+        width: 70px;
+        height: 70px;
+    }
+    91.52% {
+        width: 70px;
+        height: 100%;
+        top: auto;
+        bottom: 0;
+    }
+    91.57% {
+        top: 0;
+        bottom: auto;
+    }
+    95.68% {
+        width: 70px;
+        height: 70px;
+    }
+    100% {
+        width: 70px;
+        height: 70px;
+    }
+}
+@keyframes loader2 {
+    0% {
+        width: 70px;
+        height: 70px;
+    }
+    4.16% {
+        width: 70px;
+        height: 70px;
+    }
+    8.32% {
+        width: 70px;
+        height: 100%;
+        top: 0;
+        bottom: auto;
+    }
+    8.40% {
+        top: auto;
+        bottom: 0;
+    }
+    12.48% {
+        width: 70px;
+        height: 70px;
+    }
+    29.12% {
+        width: 70px;
+        height: 70px;
+    }
+    33.28% {
+        width: 100%;
+        height: 70px;
+        right: 0;
+        left: auto;
+    }
+    33.35% {
+        left: 0;
+        right: auto;
+    }
+    37.44% {
+        width: 70px;
+        height: 70px;
+    }
+    54.08% {
+        width: 70px;
+        height: 70px;
+    }
+    58.24% {
+        width: 70px;
+        height: 100%;
+        top: auto;
+        bottom: 0;
+    }
+    58.30% {
+        top: 0;
+        bottom: auto;
+    }
+    62.4% {
+        width: 70px;
+        height: 70px;
+    }
+    79.04% {
+        width: 70px;
+        height: 70px;
+    }
+    83.2% {
+        width: 100%;
+        height: 70px;
+        left: 0;
+        right: auto;
+    }
+    83.25% {
+        left: auto;
+        right: 0;
+    }
+    87.36% {
+        width: 70px;
+        height: 70px;
+    }
+    100% {
+        width: 70px;
+        height: 70px;
+    }
+}
+@keyframes loader3 {
+    0% {
+        width: 100%;
+        height: 70px;
+    }
+    4.16% {
+        width: 70px;
+        height: 70px;
+    }
+    20.8% {
+        width: 70px;
+        height: 70px;
+    }
+    24.96% {
+        width: 70px;
+        height: 100%;
+        top: auto;
+        bottom: 0;
+    }
+    25.05% {
+        top: 0;
+        bottom: auto;
+    }
+    29.12% {
+        width: 70px;
+        height: 70px;
+    }
+    45.76% {
+        width: 70px;
+        height: 70px;
+    }
+    49.92% {
+        width: 100%;
+        height: 70px;
+        left: 0;
+        right: auto;
+    }
+    49.95% {
+        right: 0;
+        left: auto;
+    }
+    54.08% {
+        width: 70px;
+        height: 70px;
+    }
+    70.72% {
+        width: 70px;
+        height: 70px;
+    }
+    74.88% {
+        width: 70px;
+        height: 100%;
+        top: 0;
+        bottom: auto;
+    }
+    74.92% {
+        top: auto;
+        bottom: 0;
+    }
+    79.04% {
+        width: 70px;
+        height: 70px;
+    }
+    95.68% {
+        width: 70px;
+        height: 70px;
+    }
+    100% {
+        width: 100%;
+        height: 70px;
+        right: 0;
+        left: auto;
+    }
+}
+
+.ufo-edit-widget-back {
+    width: 30px;padding: 0;height: 30px;
+}
+
+.ufo-side-content-container {
+    overflow: auto;
+    height: calc(100% - 45px);
+}
+
+.ufo-input-list-tags {
+    direction: ltr;
+    padding: 4px;
+}
+.ufo-input-list-tags span {
+    background: #00a1ff;
+    border-radius: 4px;
+    padding: 0 6px;
+    color: white;
+    margin: 0 10px 5px 0;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.ufo-control-connected-inputs {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    height: 30px;
+    padding: 0 2px 0;
+}
+.ufo-control-connected-inputs div {
+    width: 20%;
+}
+.ufo-control-connected-inputs div button {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+.ufo-control-connected-inputs div button.active {
+    background: #bbb9b9;
+    color: white;
+}
+.ufo-control-connected-inputs div input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    padding: 0 5px;
+    font-size: 13px;
+}
+
+.ufo-btn-alignment-widget {
+    width: 33%;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 17px;
+    background: #f0ffff;
+    padding: 5px 0;
+}
+.ufo-btn-alignment-widget:hover,
+.ufo-btn-alignment-widget.active {
+    background: #ecf1f1;
+}
+
+.ufo-align-widget-rtl {
+    direction: rtl;
+}
+.ufo-align-widget-ltr {
+    direction: ltr;
+}
+.ufo-align-widget-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ufo-switch-type-wrp {
+    background: #f0f1f0;
+    height: 40px;
+    padding: 6px;
+    margin: 0 0 10px;
+    border-radius: 6px;
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+}
+.ufo-switch-type-wrp button {
+    width: 33%;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0;
+}
+.ufo-switch-type-wrp button.active {
+    background: #4b4b4b;
+    color: white;
+    transition: background-color 300ms linear;
+}
+
+.ufo-input-color-wrp .pickr {
+    width: 100%;
+    margin: 10px 0 0;
+}
+.ufo-input-color-wrp .pickr button {
+    width: 100%;
+    height: 35px;
+}
+.ufo-input-color-wrp .pickr button:before,
+.ufo-input-color-wrp .pickr button:after {
+    border-radius: 6px;
+}
+
+.ufo-code-editor {
+    width: 100%;
+    height: 100%;
+    background: #2b2b2b !important;
+}
+.ufo-code-editor .ufo-code-editor-header {
+    width: 100%;
+    height: 40px;
+    background: #3C3F41;
+    display: flex;
+    justify-content: flex-start;
+    direction: ltr;
+    overflow: hidden;
+}
+.ufo-code-editor .ufo-code-editor-header button {
+    background: #3C3F41;
+    color: white;
+    outline: none;
+    border: none;
+    min-width: 150px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 300ms linear;
+}
+.ufo-code-editor .ufo-code-editor-header button.active {
+    background: #4E5254;
+    border-bottom: 3px solid #747A80;
+    padding: 6px 0 0 0;
+}
+.ufo-code-editor .ufo-code-editor-pages .ufo-code-editor-pc {
+    display: none;
+    width: 100%;
+    height: calc(100% - 40px);
+}
+.ufo-code-editor .ufo-code-editor-pages .ufo-code-editor-pc.active {
+    display: block;
+}
+
+.popupwindow_titlebar_text {
+    font-size: 13px;
+}
+html[dir="rtl"] .popupwindow_titlebar_text {
+    direction: rtl !important;
+    text-align: right !important;
+}
+.popupwindow_content {
+    padding: 0 !important;
+}
+.popupwindow_content:after {
+    height: 0 !important;
+    display: none !important;
+}
+.popupwindow_statusbar {
+    direction: ltr !important;
+}
+
+.CodeMirror-hint {
+    color: white !important;
+}
+.ufo-run-code {
+    position: absolute;
+    right: 0;
+    background: green;
+    border: 0;
+    color: white;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.ufo-select-image {
+    width: 100%;
+    font-size: 17px;
+    margin: 0 0 15px;
+}
+.ufo-select-image .img-container {
+    width: 100%;
+    height: 130px;
+    background: #e1dddd;
+    margin: 10px 0 0;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-select-image .loader {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-select-image .loader i {
+    font-size: 30px;
+}
+
+.ufo-photo-box-page {
+    width: 100%;
+    height: max-content;
+    padding: 4px;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: wrap;
+}
+.ufo-photo-box-page .ufo-select-img-items, .ufo-photo-box-page .ufo-img-items {
+    width: 53.4px;
+    height: 55px;
+    border: 2px dashed #949494;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px 5px 0 0;
+}
+html[dir="rtl"] .ufo-photo-box-page .ufo-select-img-items, html[dir="rtl"] .ufo-photo-box-page .ufo-img-items {
+    margin: 5px 0 0 5px;
+}
+.ufo-photo-box-page .ufo-select-img-items:before {
+    font-family: ufo-icon;
+    content: "\e9cc";
+    font-size: 19px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ufo-photo-box-page .ufo-select-img-items.loading:before {
+    content: "\ea25";
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+}
+.ufo-photo-box-page .ufo-img-items:hover:before {
+    font-family: ufo-icon;
+    content: "\e9fa";
+    width: 25px;
+    height: 25px;
+    background: red;
+    color: white;
+    position: absolute;
+    margin: 12px;
+    border-radius: 4px;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+.ufo-photo-box-page .ufo-img-items img {
+    width: 100%;
+    height: 100%;
+}
+
+.ufo-publish-page {
+    width: 96%;
+}
+
+@media screen and (max-width: 800px) {
+    .ufo-toolbar-wrp {
+        padding: 0;
+    }
+    html[dir="rtl"] .ufo-toolbar-wrp {
+        padding: 0 15px 0 0;
+    }
+    .ufo-header-editor {
+        flex-wrap: wrap;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .side {
+        position: absolute;
+        width: 100%;
+        height: calc(100% - 60px);
+    }
+    .ufo-header-editor .right {
+        display: none !important;
+    }
+    .ufo-element-droppable .ufo-create-child-container {
+        width: 90%;
+    }
+    .ufo-toolbar-column:first-child {
+        padding: 0 15px;
+    }
+    .ufo-toolbar-column:nth-child(2) {
+        padding: 0 15px;
+    }
+    html[dir="rtl"] .ufo-toolbar-column:nth-child(2) {
+        padding: 0 15px;
+    }
+    .ufo-run-code {
+        z-index: 2;
+        bottom: 0;
+        border-radius: 5px 0 0 0;
+    }
+}
