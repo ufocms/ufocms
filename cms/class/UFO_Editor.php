@@ -399,6 +399,8 @@ final class UFO_Editor {
                 $key = "title";
 
             $authorID = $ufo->equal($from ?? "", "member") ? $ufo->get_member()["uid"] : $ufo->get_admin()["id"];
+            $photo = $photo ?? $oldData["photo"];
+            $category = $category ?? $oldData["category"];
 
             /**
              * Update data
@@ -407,9 +409,9 @@ final class UFO_Editor {
                 "title"      => $title ?? $oldData["title"],
                 "content"    => $content ?? $oldData["content"],
                 "short_desc" => $short_desc ?? $oldData["short_desc"],
-                "photo"      => isset($photo) ? (is_array($photo) ? json_encode($photo) : "[]") : $oldData["photo"],
+                "photo"      => is_array($photo) ? json_encode($photo) : "[]",
                 "link"       => $link ?? $oldData["link"],
-                "category"   => isset($category) ? (is_array($category) ? json_encode($category, JSON_UNESCAPED_UNICODE) : "[]") : $oldData["category"],
+                "category"   => is_array($category) ? json_encode($category, JSON_UNESCAPED_UNICODE) : "[]",
                 "tags"       => (string) ($tags ?? $oldData["tags"]),
                 "status"     => (int) ($status ?? $oldData["status"]),
                 "type"       => $type ?? $oldData["type"],
