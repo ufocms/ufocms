@@ -258,6 +258,7 @@ html[dir="rtl"] .side .side-tabs li:first-child {
 
 .ufo-editor-accordion {
     width: 100%;
+    height: fit-content;
     background-color: whitesmoke;
     border: none;
     outline: none;
