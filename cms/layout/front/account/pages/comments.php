@@ -4,6 +4,8 @@
  * Display all comments in the table
  */
 
+$_['ufo_acc_page_title'] = $ufo->lng('Comments');
+
 $Page = (int) ($_GET["page"] ?? 1);
 $Comments = $ufo->get_comments("article", true, $Page, $db->table_rows, [
     "mid" => $_["this_member"]["uid"]
