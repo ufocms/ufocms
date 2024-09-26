@@ -125,6 +125,11 @@ html[dir="rtl"] .ufo-mini-profile .ufo-icon-log-out {
     height: calc(100% - 55px);
     margin-top: 20px;
     padding: 0;
+    overflow: auto;
+}
+.ufo-account-list-menu::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 .ufo-account-list-menu a {
     display: block;
