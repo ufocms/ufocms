@@ -299,7 +299,13 @@ final class UFO_Account {
 
         $_["ufo_account_path"] = $ufo->slash_folder($admin_folder . "layout/front/account/");
 
-        $ufo->add_rule($_["ufo_account_path"] . "index", [
+        if ($ufo->file_exists_theme("account")) {
+            $page = $ufo->theme_path() . "account";
+        } else {
+            $page = $_["ufo_account_path"] . "index";
+        }
+
+        $ufo->add_rule($page, [
             $db->slug("account"),
             $db->slug("account") . "/(?'page'[^/]+)"
         ], null, fn () => $this->init_account());
