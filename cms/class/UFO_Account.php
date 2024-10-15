@@ -978,11 +978,6 @@ final class UFO_Account {
         $_["this_url"]    = $ufo->get_url();
         $_["this_member"] = $ufo->get_member();
 
-        $ufo->add_meta([
-            "name"    => "robots",
-            "content" => "noindex, nofollow"
-        ]);
-
         $this->works();
         $this->dashboard();
         $this->pages();
@@ -991,6 +986,7 @@ final class UFO_Account {
 
         $this->add_style();
         $this->add_script();
+        $this->add_meta();
     }
 
     /**
@@ -1021,6 +1017,22 @@ final class UFO_Account {
         $ufo->fire("ufo-account-script");
 
         $ufo->add_script("front", ASSETS . "script/front.js");
+    }
+
+    /**
+     * @return void
+     */
+    protected function add_meta () {
+        global $ufo;
+
+        $ufo->clear_meta();
+
+        $ufo->add_meta([
+            "name"    => "robots",
+            "content" => "noindex, nofollow"
+        ]);
+
+        $ufo->fire("ufo-account-meta");
     }
 
     /**
