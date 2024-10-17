@@ -4,4 +4,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(.*)$ index.php [QSA,L,NC]
+
+<Files ~ "manifest.json">
+  deny from all
+</Files>
 # Do not delete or change
