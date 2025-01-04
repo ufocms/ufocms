@@ -545,15 +545,18 @@ final class UFO_Template {
         $forms = array_merge($merged_forms,
             $this->manifest("config")["forms"] ?? []
         );
-        $file  = $ufo->slash_folder($admin_folder . "layout/front/forms");
+        $file  = $admin_folder . "layout/front/forms";
+
+        if ($ufo->file_exists_theme("forms"))
+            $file = $ufo->theme_path() . "forms";
 
         foreach ($forms as $form => $info) {
-            $ufo->add_rule($file, "/$info[slug]", $info["title"] . " - " . $ufo->this_title(), $ufo->fn(function ($form) {
+            $ufo->add_rule($ufo->slash_folder($file), "/$info[slug]", $info["title"] . " - " . $ufo->this_title(), $ufo->fn(function ($form) {
                 global $_; $_["ufo_this_form"] = $form;
             }, $form));
         }
     }
-
+    
     /**
      * @return void
      */
