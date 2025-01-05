@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2022-2024 UFOCMS
+ * Copyright (c) 2022-2025 UFOCMS
  *
  * This software is licensed under the GPLv3 license.
  * See the LICENSE file for more information.
@@ -16,6 +16,8 @@ final class UFO_Care {
         $this->sanitize_GET();
         $this->php_version_handler();
         $this->extensions_handler();
+
+        register_shutdown_function(fn () => $this->shutdown_handler());
     }
 
     /**
@@ -130,6 +132,17 @@ final class UFO_Care {
                 $_GET[$k] = $ufo->sanitize_xss($v);
             }
         }
+    }
+
+    /**
+     * @return void
+     */
+    protected function shutdown_handler () {
+        global $ufo, $db;
+
+        $db->helper->disconnectAll();
+
+        $ufo->fire('ufo_shutdown');
     }
 
 }
