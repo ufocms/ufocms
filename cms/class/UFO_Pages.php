@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2022-2024 UFOCMS
+ * Copyright (c) 2022-2025 UFOCMS
  *
  * This software is licensed under the GPLv3 license.
  * See the LICENSE file for more information.
@@ -50,7 +50,7 @@ final class UFO_Pages {
 
                 return (new UFO_Pages())->all(
                     $type, $limit, $page,
-                    $limit != 0 ? $paging_action : false, $search,
+                    $limit > 0 ? $paging_action : false, $search,
                     $status, $sort
                 );
             }
@@ -194,14 +194,12 @@ final class UFO_Pages {
 
             $where = ["type" => $type];
 
-            if ($search) {
+            if ($search)
                 $db->where($search["prop"] ?? "title", '%' . ($search["value"] ?? $search) . '%', "LIKE");
-            }
 
-            if ($paging) {
-                if ($status != "all") {
+            if ($paging || is_string($paging)) {
+                if ($status != "all")
                     $where["status"] = $status;
-                }
 
                 $fields = $this->__sort($sort);
 
@@ -660,8 +658,8 @@ final class UFO_Pages {
 
                 $db->helper
                     ->join("comments", "%prefix%$this->table.id=%prefix%comments.pid AND %prefix%comments.accept=1", "LEFT OUTER")
-                    ->groupBy("%prefix%$this->table.id")
-                    ->orderBy("%prefix%$this->table.id")
+                    ->groupBy("$db->prefix$this->table.id")
+                    ->orderBy("$db->prefix$this->table.id")
                     ->orderBy("rate");
 
                 foreach ($sort as $s) {
