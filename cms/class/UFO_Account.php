@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2024 UFOCMS
+ * Copyright (c) 2024-2025 UFOCMS
  *
  * This software is licensed under the GPLv3 license.
  * See the LICENSE file for more information.
@@ -993,9 +993,10 @@ final class UFO_Account {
      * @return void
      */
     protected function add_style ( ) {
-        global $ufo;
+        global $ufo, $_;
 
-        $ufo->clear_style();
+        if (!$ufo->isset_key($_, "ufo_prevent_clear_style"))
+            $ufo->clear_style();
 
         $ufo->add_style(ASSETS . "css/account.css");
 
@@ -1006,17 +1007,20 @@ final class UFO_Account {
      * @return void
      */
     protected function add_script ( ) {
-        global $ufo;
+        global $ufo, $_;
 
-        $ufo->clear_script();
+        if (!$ufo->isset_key($_, "ufo_prevent_clear_script")) {
+            $ufo->clear_script();
 
-        $ufo->add_script("jquery", ASSETS . "script/jquery.min.js", null, "top");
-
-        $ufo->add_script("options", ASSETS . "script/options.js", "jquery", "top");
+            $ufo->add_script("jquery", ASSETS . "script/jquery.min.js", null, "top");
+            $ufo->add_script("options", ASSETS . "script/options.js", "jquery", "top");
+        }
 
         $ufo->fire("ufo-account-script");
 
-        $ufo->add_script("front", ASSETS . "script/front.js");
+        if (!$ufo->isset_key($_, "ufo_prevent_clear_script")) {
+            $ufo->add_script("front", ASSETS . "script/front.js");
+        }
     }
 
     /**
@@ -1107,6 +1111,19 @@ final class UFO_Account {
                 $ufo->from_theme("account/comments");
             else
                 $ufo->load_layout("front/account/pages/comments");
+        });
+
+        $ufo->exert("ufo-account-page-info", function () use ($ufo) {
+            if ($ufo->file_exists_theme("account/info"))
+                $ufo->from_theme("account/info");
+            else
+                $ufo->load_layout("front/account/pages/info");
+        });
+
+        $ufo->exert("ufo-account-page-logout", function () use ($ufo) {
+            global $db;
+            $ufo->logout_member();
+            $ufo->die($ufo->redirect($ufo->web_link() . $db->slug("login")));
         });
     }
 
